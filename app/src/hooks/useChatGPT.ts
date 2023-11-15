@@ -11,7 +11,7 @@ interface GPT {
   sendRequest: (query: string) => Promise<void>;
 }
 
-const useChatGPT = () => {
+export const useChatGPT = () => {
   const [response, setResponse] = useState(null);
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -50,4 +50,3 @@ const useChatGPT = () => {
   return values;
 };
 
-export default useChatGPT;
