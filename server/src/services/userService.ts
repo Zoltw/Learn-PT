@@ -1,5 +1,5 @@
-import { User, UserInterface } from "../models/user";
-import bcrypt from "bcrypt";
+import { User, UserInterface } from '../models/user';
+import bcrypt from 'bcrypt';
 
 export const createUser = async (userData: UserInterface): Promise<UserInterface> => {
   const hashedPassword = await bcrypt.hash(userData.password, 10);
@@ -11,11 +11,11 @@ export const createUser = async (userData: UserInterface): Promise<UserInterface
 export const loginUser = async (email: string, password: string): Promise<UserInterface | Error | null> => {
   const user = await User.findOne({ email });
 
-  if (!user) return Error("User not found");
+  if (!user) return Error('User not found');
 
   const passwordMatch = await bcrypt.compare(password, user.password);
 
-  if (!passwordMatch) return Error("Incorrect password");
+  if (!passwordMatch) return Error('Incorrect password');
 
   return user;
 };

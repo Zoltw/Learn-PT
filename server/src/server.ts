@@ -1,6 +1,5 @@
-import app from "./app";
-import { connectDatabase } from "./utils/database";
-import { OpenAiService } from "./services/openAiService";
+import app from './app';
+import { connectDatabase } from './utils/database';
 
 const PORT = process.env.PORT;
 
@@ -11,7 +10,7 @@ const startServer = async () => {
       console.log(`Server is running on port ${PORT}`);
     });
   } catch (error) {
-    console.error("Error starting server:", error);
+    console.error('Error starting server:', error);
   }
 };
 

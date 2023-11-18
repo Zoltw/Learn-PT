@@ -1,6 +1,4 @@
 import { StyleSheet, Text, View } from 'react-native';
-import { useChatGPT } from '../hooks/useChatGPT';
-
 
 const Welcome: React.FC = () => {
   return (
