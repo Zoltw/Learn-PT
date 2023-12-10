@@ -1,0 +1,4 @@
+enum fieldTypes {
+  EMAIL,
+  PASSWORD,
+}

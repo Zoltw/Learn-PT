@@ -1,5 +1,5 @@
 import React from 'react';
-import { GestureResponderEvent, Text, TouchableHighlight, View } from 'react-native';
+import { Text, TouchableHighlight, View } from 'react-native';
 import { styles } from './style';
 
 interface props {
@@ -7,7 +7,7 @@ interface props {
   onPressFunction: () => void
 }
 
-export const Button: React.FC<props> = (props) => {
+export const StandardButton: React.FC<props> = (props) => {
   return (
     <View>
       <TouchableHighlight style={styles.container} onPress={props.onPressFunction}>

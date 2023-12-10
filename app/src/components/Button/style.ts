@@ -9,6 +9,7 @@ export const styles = StyleSheet.create({
     borderRadius: 4,
     elevation: 3,
     backgroundColor: 'black',
+    width: 50,
   },
   text: {
     fontSize: 16,
