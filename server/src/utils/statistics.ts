@@ -7,9 +7,9 @@ interface UserStats {
   averagePerformance: number;
   streak: number;
   lastSessionDate: Date;
-  lessonTypes: Map<string, number>; // counts of different lesson types (e.g., reading, writing)
-  errorTypes: Map<string, number>; // counts of different error types (e.g., grammar, vocabulary)
-  feedbackRatings: number[]; // user ratings for each session
+  lessonTypes: Map<string, number>;
+  errorTypes: Map<string, number>;
+  feedbackRatings: number[];
 }
 
 interface SessionStats {
@@ -21,8 +21,8 @@ interface SessionStats {
   unknownWords: string[];
   performance: number;
   lessonType: string;
-  errorTypes: string[]; // types of errors made in the session
-  feedbackRating: number; // user's rating for the session
+  errorTypes: string[];
+  feedbackRating: number;
 }
 
 export class Statistics {
@@ -71,13 +71,12 @@ export class Statistics {
         userStat.errorTypes.set(errorType, (userStat.errorTypes.get(errorType) || 0) + 1);
       });
 
-      // Update streak if the session is on a consecutive day
       const lastSessionDate = new Date(userStat.lastSessionDate);
       const currentDate = new Date(session.date);
       if (this.isConsecutiveDay(lastSessionDate, currentDate)) {
         userStat.streak += 1;
       } else {
-        userStat.streak = 1; // reset streak if not consecutive
+        userStat.streak = 1;
       }
       userStat.lastSessionDate = currentDate;
       userStat.feedbackRatings.push(session.feedbackRating);
