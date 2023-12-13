@@ -6,10 +6,10 @@ import { useTranslation } from 'react-i18next';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '../../../../App';
 
-type HomeScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Welcome'>;
+type WelcomeScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Welcome'>;
 
 type Props = {
-  navigation: HomeScreenNavigationProp;
+  navigation: WelcomeScreenNavigationProp;
 };
 
 const Welcome: React.FC<Props> = ({ navigation }) => {
