@@ -14,7 +14,7 @@ app.use(
     resave: false,
     saveUninitialized: false,
     store: MongoStore.create({
-      mongoUrl: 'mongodb://db:27017/throne-tracker',
+      mongoUrl: 'mongodb://db:27017/learn-pt',
       collectionName: 'sessions',
       ttl: 3600,
     }),

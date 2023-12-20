@@ -9,7 +9,7 @@ interface UserStats {
   lastSessionDate: Date;
   lessonTypes: Map<string, number>;
   errorTypes: Map<string, number>;
-  feedbackRatings: number[];
+  feedbackRatings: Array<number>;
 }
 
 interface SessionStats {
@@ -17,11 +17,11 @@ interface SessionStats {
   userId: string;
   date: Date;
   duration: number;
-  knownWords: string[];
-  unknownWords: string[];
+  knownWords: Array<string>;
+  unknownWords: Array<string>;
   performance: number;
   lessonType: string;
-  errorTypes: string[];
+  errorTypes: Array<string>;
   feedbackRating: number;
 }
 

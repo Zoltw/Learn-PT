@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-const MONGODB_URI = 'mongodb://db:27017/throne-tracker';
+const MONGODB_URI = 'mongodb://db:27017/learn-pt';
 
 export const connectDatabase = async () => {
   try {

@@ -1,9 +1,10 @@
-import { Button, Text, View } from 'react-native';
+import { Button, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { styles } from './styles';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { useCallback, useEffect, useRef } from 'react';
-import { useTranslation } from 'react-i18next';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { RootStackParamList } from '../../../../App';
+import { useTranslations } from '../../../../localization/useTranslations';
+import Form from '../../components/Form/form';
 
 type RegisterScreenNavigationProp = StackNavigationProp<RootStackParamList, 'AuthRegister'>;
 
@@ -14,7 +15,7 @@ type Props = {
 
 const AuthRegister: React.FC<Props> = ({ navigation }) => {
   const isMounted = useRef(true);
-  const { t } = useTranslation();
+  const { translate } = useTranslations();
 
   useEffect(() => {
     isMounted.current = true;
@@ -29,13 +30,31 @@ const AuthRegister: React.FC<Props> = ({ navigation }) => {
     }
   }, [navigation]);
 
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [repeatPassword, setRepeatPassword] = useState('');
+
   return (
     <View style={styles.container}>
-      <Text>Reg</Text>
-      <Button title={t('Register')} onPress={navigateToLogin}/>
+      <Form
+        emailValue={email}
+        passwordValue={password}
+        repeatPasswordValue={repeatPassword}
+        setEmail={setEmail}
+        setPassword={setPassword}
+        setRepeatPassword={setRepeatPassword}
+      />
+      <TouchableOpacity style={styles.button}>
+        <Text style={styles.buttonText}>{translate('NEXT')}</Text>
+      </TouchableOpacity>
+
+      <Text style={styles.loginPrompt}>
+        or try to <Text style={styles.loginText}>login in</Text>
+      </Text>
     </View>
   );
 };
 
 
 export default AuthRegister;
+

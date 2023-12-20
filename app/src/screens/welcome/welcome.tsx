@@ -1,10 +1,10 @@
-import { View } from 'react-native';
+import { Text, View } from 'react-native';
 import { styles } from './styles';
 import { StandardButton } from '../../components/Button/StandardButton';
 import { useCallback, useEffect, useRef } from 'react';
-import { useTranslation } from 'react-i18next';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '../../../../App';
+import { useTranslations } from '../../../../localization/useTranslations';
 
 type WelcomeScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Welcome'>;
 
@@ -14,7 +14,7 @@ type Props = {
 
 const Welcome: React.FC<Props> = ({ navigation }) => {
   const isMounted = useRef(true);
-  const { t } = useTranslation();
+  const { translate } = useTranslations();
 
   useEffect(() => {
     isMounted.current = true;
@@ -37,8 +37,21 @@ const Welcome: React.FC<Props> = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <StandardButton text={t('Sign in')} onPressFunction={navigateToLogin}/>
-      <StandardButton text={t('Register')} onPressFunction={navigateToRegister}/>
+      {/* {/* <StandardButton text={translate('Sign in')} onPressFunction={navigateToLogin}/> */}
+      <View style={styles.container}>
+        <Text style={styles.title}>LearnPT</Text>
+        <Text style={styles.subtitle}>Your AI Teacher</Text>
+        <View style={styles.buttonContainer}>
+          {/* <TouchableOpacity style={styles.button}>
+            <Text style={styles.buttonText}>LOG IN</Text>
+          </TouchableOpacity> */}
+          <StandardButton text={translate('Sign in')} blackButton={false} onPressFunction={navigateToLogin}/>
+          <StandardButton text={translate('Register')} blackButton={true} onPressFunction={navigateToRegister}/>
+          {/* <TouchableOpacity style={[styles.button, styles.buttonRegister]}>
+            <Text style={[styles.buttonText, styles.buttonTextRegister]}>REGISTER</Text>
+          </TouchableOpacity> */}
+        </View>
+      </View>
     </View>
   );
 };

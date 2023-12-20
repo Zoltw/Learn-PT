@@ -11,12 +11,27 @@ export const styles = StyleSheet.create({
     backgroundColor: 'black',
     width: 50,
   },
-  text: {
-    fontSize: 16,
-    lineHeight: 21,
+  button: {
+    backgroundColor: '#000',
+    padding: 15,
+    borderRadius: 5,
+    marginVertical: 5,
+  },
+  buttonText: {
+    color: '#fff',
+    textAlign: 'center',
     fontWeight: 'bold',
-    letterSpacing: 0.25,
-    color: 'white',
+  },
+  buttonBlack: {
+    backgroundColor: '#fff',
+    borderWidth: 2,
+    borderColor: '#000',
+    padding: 15,
+    borderRadius: 5,
+    marginVertical: 5,
+  },
+  buttonBlackText: {
+    color: '#000',
   },
 });
 
