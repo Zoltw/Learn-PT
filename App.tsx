@@ -8,6 +8,7 @@ import LearningScreen from './app/src/screens/learningScreen/learningScreen';
 import AuthRegister from './app/src/screens/authRegister/authRegister';
 import Settings from './app/src/screens/settings/settings';
 import ChooseLanguage from './app/src/screens/chooseLanguage/chooseLanguage';
+import { screenApp } from './app/src/screens/screens';
 
 export type RootStackParamList = {
   ChooseLanguage: undefined;
@@ -33,13 +34,13 @@ const App: React.FC = () => {
           cardOverlayEnabled: true,
         }}
       >
-        <Stack.Screen name="ChooseLanguage" component={ChooseLanguage} />
-        <Stack.Screen name="Welcome" component={Welcome} />
-        <Stack.Screen name="AuthLogin" component={isAuth ? Dashboard : AuthLogin} />
-        <Stack.Screen name="AuthRegister" component={AuthRegister} />
-        <Stack.Screen name="Dashboard" component={Dashboard} />
-        <Stack.Screen name="LearningScreen" component={LearningScreen} />
-        <Stack.Screen name="Settings" component={Settings} />
+        <Stack.Screen name={screenApp.CHOOSE_LANGUAGE} component={ChooseLanguage} />
+        <Stack.Screen name={screenApp.WELCOME} component={Welcome} />
+        <Stack.Screen name={screenApp.AUTH_LOGIN} component={isAuth ? Dashboard : AuthLogin} />
+        <Stack.Screen name={screenApp.AUTH_REGISTER} component={AuthRegister} />
+        <Stack.Screen name={screenApp.DASHBOARD} component={Dashboard} />
+        <Stack.Screen name={screenApp.LEARNING_SCREEN} component={LearningScreen} />
+        <Stack.Screen name={screenApp.SETTINGS} component={Settings} />
       </Stack.Navigator>
     </NavigationContainer>
   );

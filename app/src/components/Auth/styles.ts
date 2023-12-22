@@ -43,4 +43,7 @@ export const styles = StyleSheet.create({
     fontWeight: 'bold',
     textDecorationLine: 'underline',
   },
+  buttonDisabled: {
+    opacity: 0.5,
+  },
 });

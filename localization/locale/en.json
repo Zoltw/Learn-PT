@@ -5,8 +5,9 @@
     "password": "password",
     "repeat password": "repeat password",
     "NEXT": "NEXT",
-    "or try to": "or try to",
-    "log in": "log in",
-    "sign up": "sign up"
+    "Don’t have an account?": "Don’t have an account?",
+    "Already have an account?": "Already have an account?",
+    "Log in": "Log in",
+    "Sign up": "Sign up"
 }
   

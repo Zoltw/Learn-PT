@@ -5,9 +5,10 @@ import { LanguagePicker } from '../../components/LanguagePicker/LanguagePicker';
 import { RootStackParamList } from '../../../../App';
 import { StandardButton } from '../../components/Button/StandardButton';
 import { styles } from './styles';
+import { screenApp } from '../screens';
 
 
-type WelcomeNavigationProp = StackNavigationProp<RootStackParamList, 'ChooseLanguage'>;
+type WelcomeNavigationProp = StackNavigationProp<RootStackParamList, screenApp.CHOOSE_LANGUAGE>;
 
 type Props = {
   navigation: WelcomeNavigationProp;
@@ -20,7 +21,7 @@ const ChooseLanguage: React.FC<Props> = ({ navigation }) => {
       <LanguagePicker />
       <StandardButton
         text={'Continue'}
-        onPressFunction={() => navigation.replace('Welcome')} blackButton={false} />
+        onPressFunction={() => navigation.replace(screenApp.WELCOME)} blackButton={false} />
     </View>
   );
 };

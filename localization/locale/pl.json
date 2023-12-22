@@ -5,8 +5,9 @@
     "password": "hasło",
     "repeat password": "potwórz hasło",
     "NEXT": "DALEJ",
-    "or try to": "lub spróbuj się",
-    "log in": "zalogować",
-    "sign up": "zarejestrować"
+    "Don’t have an account?": "Nie masz konta?",
+    "Already have an account?": "Masz juz konto?",
+    "Log in": "Zaloguj się",
+    "Sign up": "Zarejestruj się"
 }
   
