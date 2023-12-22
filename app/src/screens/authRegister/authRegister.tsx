@@ -1,10 +1,11 @@
-import { Button, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { Text, TouchableOpacity, View } from 'react-native';
 import { styles } from './styles';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { RootStackParamList } from '../../../../App';
 import { useTranslations } from '../../../../localization/useTranslations';
 import Form from '../../components/Form/form';
+import { formTypes } from '../../components/Form/formTypes';
 
 type RegisterScreenNavigationProp = StackNavigationProp<RootStackParamList, 'AuthRegister'>;
 
@@ -16,6 +17,10 @@ type Props = {
 const AuthRegister: React.FC<Props> = ({ navigation }) => {
   const isMounted = useRef(true);
   const { translate } = useTranslations();
+
+  const [email, setEmail] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
+  const [repeatPassword, setRepeatPassword] = useState<string>('');
 
   useEffect(() => {
     isMounted.current = true;
@@ -30,9 +35,11 @@ const AuthRegister: React.FC<Props> = ({ navigation }) => {
     }
   }, [navigation]);
 
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [repeatPassword, setRepeatPassword] = useState('');
+  const createAccountNavigateToLogin = useCallback(() => {
+    if (isMounted.current) {
+      navigation.navigate('AuthLogin');
+    }
+  }, [navigation]);
 
   return (
     <View style={styles.container}>
@@ -43,13 +50,14 @@ const AuthRegister: React.FC<Props> = ({ navigation }) => {
         setEmail={setEmail}
         setPassword={setPassword}
         setRepeatPassword={setRepeatPassword}
+        type={formTypes.REGISTER}
       />
-      <TouchableOpacity style={styles.button}>
+      <TouchableOpacity style={styles.button} onPress={createAccountNavigateToLogin}>
         <Text style={styles.buttonText}>{translate('NEXT')}</Text>
       </TouchableOpacity>
 
       <Text style={styles.loginPrompt}>
-        or try to <Text style={styles.loginText}>login in</Text>
+        {translate('or try to')} <Text style={styles.loginText} onPress={navigateToLogin}>{translate('log in')}</Text>
       </Text>
     </View>
   );

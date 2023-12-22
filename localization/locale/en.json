@@ -1,5 +1,12 @@
 {
-    "welcome": "Check out places worth seeing!",
-    "let's get started": "Let's get started!"
+    "Sign in": "Sign in", 
+    "Register": "Register",
+    "Your AI Teacher": "Your AI Teacher",
+    "password": "password",
+    "repeat password": "repeat password",
+    "NEXT": "NEXT",
+    "or try to": "or try to",
+    "log in": "log in",
+    "sign up": "sign up"
 }
   

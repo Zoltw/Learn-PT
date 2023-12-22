@@ -40,7 +40,7 @@ const Welcome: React.FC<Props> = ({ navigation }) => {
       {/* {/* <StandardButton text={translate('Sign in')} onPressFunction={navigateToLogin}/> */}
       <View style={styles.container}>
         <Text style={styles.title}>LearnPT</Text>
-        <Text style={styles.subtitle}>Your AI Teacher</Text>
+        <Text style={styles.subtitle}>{translate('Your AI Teacher')}</Text>
         <View style={styles.buttonContainer}>
           {/* <TouchableOpacity style={styles.button}>
             <Text style={styles.buttonText}>LOG IN</Text>

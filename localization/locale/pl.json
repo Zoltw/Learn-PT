@@ -1,5 +1,12 @@
 {
-    "welcome": "Sprawdź miejsca warte zobaczenia!", 
-    "let's get started": "Zaczynajmy!"
+    "Sign in": "Zaloguj się", 
+    "Register": "Zarejestruj się",
+    "Your AI Teacher": "Twój inteligentny nauczyciel",
+    "password": "hasło",
+    "repeat password": "potwórz hasło",
+    "NEXT": "DALEJ",
+    "or try to": "lub spróbuj się",
+    "log in": "zalogować",
+    "sign up": "zarejestrować"
 }
   

@@ -1,4 +1,0 @@
-enum fieldTypes {
-  EMAIL,
-  PASSWORD,
-}

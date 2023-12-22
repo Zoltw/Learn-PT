@@ -7,8 +7,10 @@ import AuthLogin from './app/src/screens/authLogin/authLogin';
 import LearningScreen from './app/src/screens/learningScreen/learningScreen';
 import AuthRegister from './app/src/screens/authRegister/authRegister';
 import Settings from './app/src/screens/settings/settings';
+import ChooseLanguage from './app/src/screens/chooseLanguage/chooseLanguage';
 
 export type RootStackParamList = {
+  ChooseLanguage: undefined;
   Welcome: undefined;
   AuthLogin: undefined;
   AuthRegister: undefined;
@@ -31,6 +33,7 @@ const App: React.FC = () => {
           cardOverlayEnabled: true,
         }}
       >
+        <Stack.Screen name="ChooseLanguage" component={ChooseLanguage} />
         <Stack.Screen name="Welcome" component={Welcome} />
         <Stack.Screen name="AuthLogin" component={isAuth ? Dashboard : AuthLogin} />
         <Stack.Screen name="AuthRegister" component={AuthRegister} />
