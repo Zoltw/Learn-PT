@@ -4,7 +4,7 @@ import { formTypes } from '../../components/Form/formTypes';
 import { RootStackParamList } from '../../../../App';
 import { useCallback } from 'react';
 import { screenApp } from '../screens';
-import { loginDisclaimer } from './styles';
+import { loginDisclaimer } from './variables';
 
 type Props = {
   navigation: StackNavigationProp<RootStackParamList, screenApp.AUTH_LOGIN>;
