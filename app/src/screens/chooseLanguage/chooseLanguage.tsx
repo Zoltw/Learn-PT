@@ -7,11 +7,10 @@ import { StandardButton } from '../../components/Button/StandardButton';
 import { styles } from './styles';
 import { screenApp } from '../screens';
 
-
-type WelcomeNavigationProp = StackNavigationProp<RootStackParamList, screenApp.CHOOSE_LANGUAGE>;
+type ChooseLanguageNavigationProp = StackNavigationProp<RootStackParamList, screenApp.CHOOSE_LANGUAGE>;
 
 type Props = {
-  navigation: WelcomeNavigationProp;
+  navigation: ChooseLanguageNavigationProp;
 };
 
 const ChooseLanguage: React.FC<Props> = ({ navigation }) => {

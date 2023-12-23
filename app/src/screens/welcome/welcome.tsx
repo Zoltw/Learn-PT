@@ -38,20 +38,11 @@ const Welcome: React.FC<Props> = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      {/* {/* <StandardButton text={translate('Sign in')} onPressFunction={navigateToLogin}/> */}
-      <View style={styles.container}>
-        <Text style={styles.title}>LearnPT</Text>
-        <Text style={styles.subtitle}>{translate('Your AI Teacher')}</Text>
-        <View style={styles.buttonContainer}>
-          {/* <TouchableOpacity style={styles.button}>
-            <Text style={styles.buttonText}>LOG IN</Text>
-          </TouchableOpacity> */}
-          <StandardButton text={translate('Sign in')} blackButton={false} onPressFunction={navigateToLogin}/>
-          <StandardButton text={translate('Register')} blackButton={true} onPressFunction={navigateToRegister}/>
-          {/* <TouchableOpacity style={[styles.button, styles.buttonRegister]}>
-            <Text style={[styles.buttonText, styles.buttonTextRegister]}>REGISTER</Text>
-          </TouchableOpacity> */}
-        </View>
+      <Text style={styles.title}>LearnPT</Text>
+      <Text style={styles.subtitle}>{translate('Your AI Teacher')}</Text>
+      <View style={styles.buttonContainer}>
+        <StandardButton text={translate('Sign in')} blackButton={false} onPressFunction={navigateToLogin}/>
+        <StandardButton text={translate('Register')} blackButton={true} onPressFunction={navigateToRegister}/>
       </View>
     </View>
   );

@@ -12,26 +12,28 @@ export const styles = StyleSheet.create({
     width: 50,
   },
   button: {
-    backgroundColor: '#000',
     padding: 15,
     borderRadius: 5,
+    borderWidth: 2,
     marginVertical: 5,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   buttonText: {
-    color: '#fff',
     textAlign: 'center',
     fontWeight: 'bold',
   },
   buttonBlack: {
     backgroundColor: '#fff',
-    borderWidth: 2,
     borderColor: '#000',
-    padding: 15,
-    borderRadius: 5,
-    marginVertical: 5,
   },
   buttonBlackText: {
     color: '#000',
   },
+  buttonDefault: {
+    backgroundColor: '#000',
+  },
+  buttonDefaultText: {
+    color: '#fff',
+  },
 });
-

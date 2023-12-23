@@ -2,20 +2,20 @@ import React from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
 import { styles } from './style';
 
-interface props {
-  text: string,
-  blackButton: boolean,
-  onPressFunction: () => void,
+interface Props {
+  text: string;
+  blackButton: boolean;
+  onPressFunction: () => void;
 }
 
-export const StandardButton: React.FC<props> = (props) => {
-  const buttonRegisterStyle = props.blackButton ? styles.buttonBlack : styles.button;
-  const buttonTextStyle = props.blackButton ? styles.buttonBlackText : styles.buttonText;
+export const StandardButton: React.FC<Props> = ({ text, blackButton, onPressFunction }) => {
+  const buttonStyle = [styles.button, blackButton ? styles.buttonBlack : styles.buttonDefault];
+  const textStyle = [styles.buttonText, blackButton ? styles.buttonBlackText : styles.buttonDefaultText];
 
   return (
     <View>
-      <TouchableOpacity style={buttonRegisterStyle} onPress={props.onPressFunction}>
-        <Text style={buttonTextStyle}>{props.text}</Text>
+      <TouchableOpacity style={buttonStyle} onPress={onPressFunction}>
+        <Text style={textStyle}>{text}</Text>
       </TouchableOpacity>
     </View>
   );

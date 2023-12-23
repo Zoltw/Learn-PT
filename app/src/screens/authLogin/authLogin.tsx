@@ -18,7 +18,6 @@ const AuthLogin: React.FC<Props> = ({ navigation }) => {
   return (
     <Auth
       type={formTypes.LOGIN}
-      navigation={navigation}
       onNavigate={handleLoginNavigation}
       alternateNavigate={() => navigation.navigate(screenApp.AUTH_REGISTER)}
       alternateText={loginDisclaimer}

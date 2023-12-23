@@ -8,17 +8,14 @@ import { formTypes } from '../../components/Form/formTypes';
 import { styles } from './styles';
 import { screenApp } from '../../screens/screens';
 
-type AuthNavigationProp = StackNavigationProp<RootStackParamList, screenApp.AUTH_LOGIN | screenApp.AUTH_REGISTER>;
-
 interface AuthProps {
   type: formTypes;
-  navigation: AuthNavigationProp;
   onNavigate: () => void;
   alternateNavigate: () => void;
   alternateText: string;
 }
 
-const Auth: React.FC<AuthProps> = ({ type, navigation, onNavigate, alternateNavigate, alternateText }) => {
+const Auth: React.FC<AuthProps> = ({ type, onNavigate, alternateNavigate, alternateText }) => {
   const { translate } = useTranslations();
   const isMounted = useRef(true);
 
@@ -26,9 +23,7 @@ const Auth: React.FC<AuthProps> = ({ type, navigation, onNavigate, alternateNavi
   const [password, setPassword] = useState<string>('');
   const [repeatPassword, setRepeatPassword] = useState<string>('');
 
-  const isFormFilled = type === formTypes.REGISTER ?
-    email !== '' && password !== '' && repeatPassword !== '' :
-    email !== '' && password !== '';
+  const isFormFilled = email && password && (type === formTypes.REGISTER ? repeatPassword : true);
 
   useEffect(() => {
     return () => {
