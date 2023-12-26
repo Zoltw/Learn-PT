@@ -36,8 +36,8 @@ const App: React.FC = () => {
       >
         <Stack.Screen name={screenApp.CHOOSE_LANGUAGE} component={ChooseLanguage} />
         <Stack.Screen name={screenApp.WELCOME} component={Welcome} />
-        <Stack.Screen name={screenApp.AUTH_LOGIN} component={isAuth ? Dashboard : AuthLogin} />
         <Stack.Screen name={screenApp.AUTH_REGISTER} component={AuthRegister} />
+        <Stack.Screen name={screenApp.AUTH_LOGIN} component={isAuth ? Dashboard : AuthLogin} />
         <Stack.Screen name={screenApp.DASHBOARD} component={Dashboard} />
         <Stack.Screen name={screenApp.LEARNING_SCREEN} component={LearningScreen} />
         <Stack.Screen name={screenApp.SETTINGS} component={Settings} />

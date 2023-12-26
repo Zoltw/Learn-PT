@@ -1,41 +1,32 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
-import { StackNavigationProp } from '@react-navigation/stack';
-import { RootStackParamList } from '../../../../App';
 import { useTranslations } from '../../../../localization/useTranslations';
 import Form from '../../components/Form/form';
 import { formTypes } from '../../components/Form/formTypes';
 import { styles } from './styles';
-import { screenApp } from '../../screens/screens';
+import useAuthState from '../../hooks/useAuthState';
+
 
 interface AuthProps {
   type: formTypes;
   onNavigate: () => void;
+  performAction: (email: string, password: string, repeatPassword?: string) => Promise<void>;
   alternateNavigate: () => void;
   alternateText: string;
 }
 
-const Auth: React.FC<AuthProps> = ({ type, onNavigate, alternateNavigate, alternateText }) => {
+const Auth: React.FC<AuthProps> = ({ type, onNavigate, performAction, alternateNavigate, alternateText }) => {
   const { translate } = useTranslations();
-  const isMounted = useRef(true);
-
-  const [email, setEmail] = useState<string>('');
-  const [password, setPassword] = useState<string>('');
-  const [repeatPassword, setRepeatPassword] = useState<string>('');
-
-  const isFormFilled = email && password && (type === formTypes.REGISTER ? repeatPassword : true);
-
-  useEffect(() => {
-    return () => {
-      isMounted.current = false;
-    };
-  }, []);
-
-  const handleSubmit = useCallback(() => {
-    if (isFormFilled && isMounted.current) {
-      onNavigate();
-    }
-  }, [isFormFilled, onNavigate]);
+  const {
+    email,
+    setEmail,
+    password,
+    setPassword,
+    repeatPassword,
+    setRepeatPassword,
+    isFormFilled,
+    handleSubmit,
+  } = useAuthState(type, performAction, onNavigate);
 
   return (
     <View style={styles.container}>
@@ -51,15 +42,14 @@ const Auth: React.FC<AuthProps> = ({ type, onNavigate, alternateNavigate, altern
       <TouchableOpacity
         style={[styles.button, !isFormFilled && styles.buttonDisabled]}
         onPress={handleSubmit}
+        disabled={!isFormFilled}
       >
         <Text style={styles.buttonText}>{translate('NEXT')}</Text>
       </TouchableOpacity>
       <Text style={styles.loginPrompt}>
-        {translate(alternateText)}
-        {' '}
-        <Text
-          style={styles.loginText}
-          onPress={alternateNavigate}>{type === formTypes.REGISTER ? translate('Log in') : translate('Sign up')}
+        {translate(alternateText)}{' '}
+        <Text style={styles.loginText} onPress={alternateNavigate}>
+          {type === formTypes.REGISTER ? translate('Log in') : translate('Sign up')}
         </Text>
       </Text>
     </View>

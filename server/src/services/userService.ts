@@ -4,19 +4,19 @@ import bcrypt from 'bcrypt';
 export const createUser = async (userData: UserInterface): Promise<UserInterface> => {
   const hashedPassword = await bcrypt.hash(userData.password, 10);
   const user = new User({ ...userData, password: hashedPassword });
-  await user.save();
+  try {
+    await user.save();
+  } catch (error) {
+    console.error('Error saving user:', error);
+  }
   return user;
 };
 
 export const loginUser = async (email: string, password: string): Promise<UserInterface | Error | null> => {
   const user = await User.findOne({ email });
-
   if (!user) return Error('User not found');
-
   const passwordMatch = await bcrypt.compare(password, user.password);
-
   if (!passwordMatch) return Error('Incorrect password');
-
   return user;
 };
 

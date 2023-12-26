@@ -5,6 +5,7 @@ import promptRoutes from './routes/promptRoutes';
 import { accessControl } from './utils/middlewares';
 import session from 'express-session';
 import MongoStore from 'connect-mongo';
+import health from './routes/health';
 
 const app = express();
 
@@ -23,6 +24,7 @@ app.use(
 
 app.use(express.json());
 app.use(accessControl);
+app.use('/health', health);
 app.use('/v1/users', userRoutes);
 app.use('/v1/chat', promptRoutes);
 

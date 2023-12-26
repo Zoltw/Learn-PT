@@ -3,20 +3,26 @@ import * as userService from '../services/userService';
 import { UserInterface } from '../models/user';
 import jwt from 'jsonwebtoken';
 
-export const createUser = async (req: Request, res: Response) => {
+type userType = Promise<Response<string, Record<string, string>> | undefined>;
+
+export const createUser = async (req: Request, res: Response): userType => {
   const userData: UserInterface & { passwordConfirmation: string } = req.body;
   if (userData.password !== userData.passwordConfirmation) {
+    console.log(userData.password);
+    console.log(userData.passwordConfirmation);
+    console.log('dupa1');
     return res.status(400).json({ message: 'Passwords do not match' });
   }
   try {
     const newUser = await userService.createUser(userData);
     res.status(201).json(newUser);
   } catch (error) {
+    console.log('dupa2');
     res.status(400).json({ message: error });
   }
 };
 
-export const loginUser = async (req: Request, res: Response) => {
+export const loginUser = async (req: Request, res: Response): userType => {
   const { email, password } = req.body;
   try {
     const user = await userService.loginUser(email, password);
@@ -31,7 +37,7 @@ export const loginUser = async (req: Request, res: Response) => {
   }
 };
 
-export const getUser = async (req: Request, res: Response) => {
+export const getUser = async (req: Request, res: Response): Promise<void> => {
   const userId = req.params.userId;
   try {
     const user = await userService.getUser(userId);
