@@ -18,7 +18,7 @@ const AuthRegister: React.FC<Props> = ({ navigation }) => {
     }
 
     try {
-      const response = await fetch(`http://localhost:8080/v1/users/register`, {
+      const response = await fetch(`${process.env.EXPO_PUBLIC_SERVER_URL}/v1/users/register`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -8,8 +8,6 @@ type userType = Promise<Response<string, Record<string, string>> | undefined>;
 export const createUser = async (req: Request, res: Response): userType => {
   const userData: UserInterface & { passwordConfirmation: string } = req.body;
   if (userData.password !== userData.passwordConfirmation) {
-    console.log(userData.password);
-    console.log(userData.passwordConfirmation);
     return res.status(400).json({ message: 'Passwords do not match' });
   }
   try {
@@ -24,7 +22,6 @@ export const loginUser = async (req: Request, res: Response): userType => {
   const { email, password } = req.body;
   try {
     const user = await userService.loginUser(email, password);
-    console.log(user);
     if (!user) {
       return res.status(401).json({ message: 'Invalid email or password' });
     }

@@ -13,7 +13,7 @@ type Props = {
 const AuthLogin: React.FC<Props> = ({ navigation }) => {
   const performLogin = useCallback(async (email: string, password: string): Promise<Response> => {
     try {
-      const response = await fetch(`http://localhost:8080/v1/users/login`, {
+      const response = await fetch(`${process.env.EXPO_PUBLIC_SERVER_URL}/v1/users/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
