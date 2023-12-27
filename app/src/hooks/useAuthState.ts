@@ -1,17 +1,18 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { formTypes } from '../components/Form/formTypes';
+import { formTypes } from '../components/Form/types';
 
 const useAuthState = (
   type: formTypes,
-  performAction: (email: string, password: string, repeatPassword?: string) => Promise<void>,
+  performAction: (email: string, password: string, repeatPassword?: string) => Promise<Response>,
   onNavigate: () => void,
+  errors: { [key: string]: string },
 ) => {
   const isMounted = useRef<boolean>(true);
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [repeatPassword, setRepeatPassword] = useState<string>('');
 
-  const isFormFilled = email && password && (type === formTypes.REGISTER ? repeatPassword : true);
+  const isFormFilled = email && password && Object.values(errors).every((error) => error === '') && (type === formTypes.REGISTER ? repeatPassword : true);
 
   useEffect(() => {
     return () => {
@@ -22,11 +23,14 @@ const useAuthState = (
   const handleSubmit = useCallback(async () => {
     if (isFormFilled && isMounted.current) {
       try {
-        await performAction(email, password, repeatPassword);
-        onNavigate();
-      } catch (error) {
-        console.error(error);
-      }
+        await performAction(email, password, repeatPassword).then((response) => {
+          if (response.ok) {
+            onNavigate();
+          }
+        }).catch((error) => {
+          console.error(error);
+        });
+      } catch {}
     }
   }, [email, password, repeatPassword, isFormFilled, onNavigate, performAction]);
 

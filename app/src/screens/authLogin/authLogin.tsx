@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 import { StackNavigationProp } from '@react-navigation/stack';
 import Auth from '../../components/Auth/Auth';
-import { formTypes } from '../../components/Form/formTypes';
+import { formTypes } from '../../components/Form/types';
 import { RootStackParamList } from '../../../../App';
 import { screenApp } from '../screens';
 import { loginDisclaimer } from './variables';
@@ -11,26 +11,26 @@ type Props = {
 };
 
 const AuthLogin: React.FC<Props> = ({ navigation }) => {
-  const performLogin = useCallback(async (email: string, password: string) => {
+  const performLogin = useCallback(async (email: string, password: string): Promise<Response> => {
     try {
-      const response = await fetch(`http://192.168.100.23:8080/v1/users/login`, {
+      const response = await fetch(`http://localhost:8080/v1/users/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ email, password }),
+      }).then((response) => {
+        if (response.ok) {
+          return response;
+        } else {
+          throw new Error('Login failed');
+        }
       });
-
-      if (!response.ok) {
-        const responseData = await response.json();
-        throw new Error(responseData.message || 'Registration failed');
-      }
-
-      navigation.navigate(screenApp.AUTH_LOGIN);
+      return response;
     } catch (error) {
       console.error(error.message);
     }
-  }, [navigation]);
+  }, []);
 
   return (
     <Auth

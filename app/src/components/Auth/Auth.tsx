@@ -1,22 +1,22 @@
-import React from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
 import { useTranslations } from '../../../../localization/useTranslations';
 import Form from '../../components/Form/form';
-import { formTypes } from '../../components/Form/formTypes';
+import { formTypes, inputTypes } from '../Form/types';
 import { styles } from './styles';
 import useAuthState from '../../hooks/useAuthState';
-
 
 interface AuthProps {
   type: formTypes;
   onNavigate: () => void;
-  performAction: (email: string, password: string, repeatPassword?: string) => Promise<void>;
+  performAction: (email: string, password: string, repeatPassword?: string) => Promise<Response>;
   alternateNavigate: () => void;
   alternateText: string;
 }
 
 const Auth: React.FC<AuthProps> = ({ type, onNavigate, performAction, alternateNavigate, alternateText }) => {
   const { translate } = useTranslations();
+  const [errors, setErrors] = useState({ email: '', password: '', repeatPassword: '' });
   const {
     email,
     setEmail,
@@ -26,7 +26,63 @@ const Auth: React.FC<AuthProps> = ({ type, onNavigate, performAction, alternateN
     setRepeatPassword,
     isFormFilled,
     handleSubmit,
-  } = useAuthState(type, performAction, onNavigate);
+  } = useAuthState(type, performAction, onNavigate, errors);
+
+  const emailRegex: RegExp = useMemo(() => /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/, []);
+  const passwordRegex: RegExp = useMemo(() => /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{7,}$/, []);
+
+  const validationMessage = {
+    email: translate('Invalid email address'),
+    password: translate('Password must be at least 7 characters long, include a number and an uppercase letter'),
+    passwordMatch: translate('Passwords do not match'),
+  };
+
+  const handleFieldChange = useCallback((field: string, value: string) => {
+    switch (field) {
+      case inputTypes.EMAIL:
+        setEmail(value);
+        const isEmailValid = emailRegex.test(value);
+        setErrors((prevErrors) => ({ ...prevErrors, email: isEmailValid ? '' : validationMessage.email }));
+        break;
+
+      case inputTypes.PASSWORD:
+        setPassword(value);
+        const isPasswordValid = passwordRegex.test(value);
+        setErrors((prevErrors) => (
+          { ...prevErrors, password: isPasswordValid ? '' : validationMessage.password }
+        ));
+
+        if (type === formTypes.REGISTER && repeatPassword) {
+          const isRepeatPasswordValid = value === repeatPassword;
+          setErrors((prevErrors) => ({ ...prevErrors, repeatPassword: isRepeatPasswordValid ? '' : validationMessage.passwordMatch }));
+        }
+        break;
+
+      case inputTypes.REPEAT_PASSWORD:
+        setRepeatPassword?.(value);
+        if (type === formTypes.REGISTER) {
+          const isRepeatPasswordValid = value === password;
+          setErrors((prevErrors) => ({ ...prevErrors, repeatPassword: isRepeatPasswordValid ? '' : validationMessage.passwordMatch }));
+        }
+        break;
+
+      default:
+        break;
+    }
+  }, [
+    emailRegex,
+    password,
+    passwordRegex,
+    repeatPassword,
+    setEmail,
+    setPassword,
+    setRepeatPassword,
+    type,
+    validationMessage.email,
+    validationMessage.password,
+    validationMessage.passwordMatch,
+  ]);
+
 
   return (
     <View style={styles.container}>
@@ -34,9 +90,8 @@ const Auth: React.FC<AuthProps> = ({ type, onNavigate, performAction, alternateN
         emailValue={email}
         passwordValue={password}
         repeatPasswordValue={repeatPassword}
-        setEmail={setEmail}
-        setPassword={setPassword}
-        setRepeatPassword={setRepeatPassword}
+        onFieldChange={handleFieldChange}
+        errors={errors}
         type={type}
       />
       <TouchableOpacity

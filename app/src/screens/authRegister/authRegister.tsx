@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 import { StackNavigationProp } from '@react-navigation/stack';
 import Auth from '../../components/Auth/Auth';
-import { formTypes } from '../../components/Form/formTypes';
+import { formTypes } from '../../components/Form/types';
 import { RootStackParamList } from '../../../../App';
 import { screenApp } from '../screens';
 import { registerDisclaimer } from './variables';
@@ -18,7 +18,7 @@ const AuthRegister: React.FC<Props> = ({ navigation }) => {
     }
 
     try {
-      const response = await fetch(`http://192.168.100.23:8080/v1/users/register`, {
+      const response = await fetch(`http://localhost:8080/v1/users/register`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -30,12 +30,11 @@ const AuthRegister: React.FC<Props> = ({ navigation }) => {
         const responseData = await response.json();
         throw new Error(responseData.message || 'Registration failed');
       }
-
-      navigation.navigate(screenApp.LEARNING_SCREEN);
+      return response;
     } catch (error) {
       console.error(error.message);
     }
-  }, [navigation]);
+  }, []);
 
   return (
     <Auth

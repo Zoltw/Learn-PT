@@ -14,9 +14,9 @@ export const createUser = async (userData: UserInterface): Promise<UserInterface
 
 export const loginUser = async (email: string, password: string): Promise<UserInterface | Error | null> => {
   const user = await User.findOne({ email });
-  if (!user) return Error('User not found');
+  if (!user) return null;
   const passwordMatch = await bcrypt.compare(password, user.password);
-  if (!passwordMatch) return Error('Incorrect password');
+  if (!passwordMatch) return null;
   return user;
 };
 

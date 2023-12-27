@@ -8,6 +8,8 @@
     "Don’t have an account?": "Nie masz konta?",
     "Already have an account?": "Masz juz konto?",
     "Log in": "Zaloguj się",
-    "Sign up": "Zarejestruj się"
+    "Sign up": "Zarejestruj się",
+    "Invalid email address": "Nieprawidłowy adres email",
+    "Password must be at least 7 characters long, include a number and an uppercase letter": "Hasło musi mieć co najmniej 7 znaków, zawierać cyfrę i dużą literę"
 }
   

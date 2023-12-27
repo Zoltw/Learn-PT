@@ -10,14 +10,12 @@ export const createUser = async (req: Request, res: Response): userType => {
   if (userData.password !== userData.passwordConfirmation) {
     console.log(userData.password);
     console.log(userData.passwordConfirmation);
-    console.log('dupa1');
     return res.status(400).json({ message: 'Passwords do not match' });
   }
   try {
     const newUser = await userService.createUser(userData);
     res.status(201).json(newUser);
   } catch (error) {
-    console.log('dupa2');
     res.status(400).json({ message: error });
   }
 };
@@ -26,6 +24,7 @@ export const loginUser = async (req: Request, res: Response): userType => {
   const { email, password } = req.body;
   try {
     const user = await userService.loginUser(email, password);
+    console.log(user);
     if (!user) {
       return res.status(401).json({ message: 'Invalid email or password' });
     }

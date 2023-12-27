@@ -22,4 +22,9 @@ export const styles = StyleSheet.create({
     borderColor: 'black',
     borderRadius: 5,
   },
+  errorText: {
+    color: 'red',
+    marginTop: 5,
+    marginBottom: 15,
+  },
 });
