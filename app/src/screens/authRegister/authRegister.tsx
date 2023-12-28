@@ -1,16 +1,11 @@
 import React, { useCallback } from 'react';
-import { StackNavigationProp } from '@react-navigation/stack';
 import Auth from '../../components/Auth/Auth';
 import { formTypes } from '../../components/Form/types';
-import { RootStackParamList } from '../../../../App';
 import { screenApp } from '../screens';
 import { registerDisclaimer } from './variables';
+import { navigate } from '../../../../rootNav/navigator';
 
-type Props = {
-  navigation: StackNavigationProp<RootStackParamList, screenApp.AUTH_REGISTER>;
-};
-
-const AuthRegister: React.FC<Props> = ({ navigation }) => {
+const AuthRegister: React.FC = () => {
   const performRegistration = useCallback(async (email: string, password: string, repeatPassword: string) => {
     if (password !== repeatPassword) {
       console.error('Passwords do not match');
@@ -30,7 +25,7 @@ const AuthRegister: React.FC<Props> = ({ navigation }) => {
         const responseData = await response.json();
         throw new Error(responseData.message || 'Registration failed');
       }
-      return response;
+      navigate(screenApp.AUTH_LOGIN);
     } catch (error) {
       console.error(error.message);
     }
@@ -39,9 +34,8 @@ const AuthRegister: React.FC<Props> = ({ navigation }) => {
   return (
     <Auth
       type={formTypes.REGISTER}
-      onNavigate={() => navigation.navigate(screenApp.AUTH_LOGIN)}
       performAction={performRegistration}
-      alternateNavigate={() => navigation.navigate(screenApp.AUTH_LOGIN)}
+      alternateNavigate={() => navigate(screenApp.AUTH_LOGIN)}
       alternateText={registerDisclaimer}
     />
   );

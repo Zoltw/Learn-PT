@@ -1,7 +1,7 @@
-import React, { useCallback, useState } from 'react';
+import React from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
-import i18n from '../../../../localization/i18n';
 import { styles } from './styles';
+import useLanguage from '../../hooks/useLanguage';
 
 const languages = [
   { code: 'en', name: 'English' },
@@ -9,12 +9,7 @@ const languages = [
 ];
 
 export const LanguagePicker: React.FC = () => {
-  const [selectedLanguage, setSelectedLanguage] = useState(i18n.language);
-
-  const handleLanguageChange = useCallback((language: string) => {
-    setSelectedLanguage(language);
-    i18n.changeLanguage(language);
-  }, []);
+  const { selectedLanguage, handleLanguageChange } = useLanguage();
 
   return (
     <View style={styles.container}>

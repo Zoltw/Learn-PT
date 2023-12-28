@@ -1,43 +1,38 @@
 import React, { useCallback } from 'react';
-import { StackNavigationProp } from '@react-navigation/stack';
 import Auth from '../../components/Auth/Auth';
 import { formTypes } from '../../components/Form/types';
-import { RootStackParamList } from '../../../../App';
 import { screenApp } from '../screens';
 import { loginDisclaimer } from './variables';
+import { useAuthProvider } from '../../context/AuthProvider';
+import { navigate } from '../../../../rootNav/navigator';
+import { setHasSuccessfullyAuthenticated } from '../../storage/storage';
 
-type Props = {
-  navigation: StackNavigationProp<RootStackParamList, screenApp.AUTH_LOGIN>;
-};
-
-const AuthLogin: React.FC<Props> = ({ navigation }) => {
-  const performLogin = useCallback(async (email: string, password: string): Promise<Response> => {
+const AuthLogin: React.FC = () => {
+  const { setIsAuth } = useAuthProvider();
+  const performLogin = useCallback(async (email: string, password: string) => {
     try {
       const response = await fetch(`${process.env.EXPO_PUBLIC_SERVER_URL}/v1/users/login`, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password }),
-      }).then((response) => {
-        if (response.ok) {
-          return response;
-        } else {
-          throw new Error('Login failed');
-        }
       });
-      return response;
+
+      if (response.ok) {
+        await setHasSuccessfullyAuthenticated();
+        setIsAuth(true);
+      } else {
+        throw new Error('Login failed');
+      }
     } catch (error) {
       console.error(error.message);
     }
-  }, []);
+  }, [setIsAuth]);
 
   return (
     <Auth
       type={formTypes.LOGIN}
-      onNavigate={() => navigation.navigate(screenApp.LEARNING_SCREEN)}
       performAction={performLogin}
-      alternateNavigate={() => navigation.navigate(screenApp.AUTH_REGISTER)}
+      alternateNavigate={() => navigate(screenApp.AUTH_REGISTER)}
       alternateText={loginDisclaimer}
     />
   );

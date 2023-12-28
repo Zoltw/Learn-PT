@@ -2,7 +2,8 @@ import { local } from '.';
 
 enum StorageKey {
   LANGUAGE_PICKER = 'languagePicker',
-  HAS_SUCCESSFULLY_AUTHENTICATED = 'hasSuccesfullyAuthenticated',
+  APP_LANGUAGE = 'appLanguage',
+  HAS_SUCCESSFULLY_AUTHENTICATED = 'hasSuccessfullyAuthenticated',
 }
 
 export const getLanguagePickerSeenBefore = async (): Promise<boolean> => {
@@ -17,15 +18,23 @@ export const removeLanguagePickerSeenBefore = async (): Promise<void> => {
   return local.removeItem(StorageKey.LANGUAGE_PICKER);
 };
 
-export const getHasSuccesfullyAuthenticated = async (): Promise<boolean> => {
+export const getHasSuccessfullyAuthenticated = async (): Promise<boolean> => {
   return (await local.getItem(StorageKey.HAS_SUCCESSFULLY_AUTHENTICATED)) === 'true';
 };
 
-export const setHasSuccesfullyAuthenticated = async (): Promise<void> => {
+export const setHasSuccessfullyAuthenticated = async (): Promise<void> => {
   return local.setItem(StorageKey.HAS_SUCCESSFULLY_AUTHENTICATED, 'true');
 };
 
-export const removeHasSuccesfullyAuthenticated = async (): Promise<void> => {
+export const removeHasSuccessfullyAuthenticated = async (): Promise<void> => {
   return local.removeItem(StorageKey.HAS_SUCCESSFULLY_AUTHENTICATED);
+};
+
+export const getLanguage = async (): Promise<string> => {
+  return (await local.getItem(StorageKey.APP_LANGUAGE));
+};
+
+export const setLanguage = async (value: string): Promise<void> => {
+  return local.setItem(StorageKey.APP_LANGUAGE, value);
 };
 

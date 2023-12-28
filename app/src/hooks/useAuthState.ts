@@ -3,8 +3,7 @@ import { formTypes } from '../components/Form/types';
 
 const useAuthState = (
   type: formTypes,
-  performAction: (email: string, password: string, repeatPassword?: string) => Promise<Response>,
-  onNavigate: () => void,
+  performAction: (email: string, password: string, repeatPassword?: string) => Promise<void>,
   errors: { [key: string]: string },
 ) => {
   const isMounted = useRef<boolean>(true);
@@ -23,16 +22,12 @@ const useAuthState = (
   const handleSubmit = useCallback(async () => {
     if (isFormFilled && isMounted.current) {
       try {
-        await performAction(email, password, repeatPassword).then((response) => {
-          if (response.ok) {
-            onNavigate();
-          }
-        }).catch((error) => {
-          console.error(error);
-        });
-      } catch {}
+        await performAction(email, password, repeatPassword);
+      } catch (error) {
+        console.error(error);
+      }
     }
-  }, [email, password, repeatPassword, isFormFilled, onNavigate, performAction]);
+  }, [email, password, repeatPassword, isFormFilled, performAction]);
 
   return {
     email,

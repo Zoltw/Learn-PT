@@ -8,13 +8,12 @@ import useAuthState from '../../hooks/useAuthState';
 
 interface AuthProps {
   type: formTypes;
-  onNavigate: () => void;
-  performAction: (email: string, password: string, repeatPassword?: string) => Promise<Response>;
+  performAction: (email: string, password: string, repeatPassword?: string) => Promise<void>;
   alternateNavigate: () => void;
   alternateText: string;
 }
 
-const Auth: React.FC<AuthProps> = ({ type, onNavigate, performAction, alternateNavigate, alternateText }) => {
+const Auth: React.FC<AuthProps> = ({ type, performAction, alternateNavigate, alternateText }) => {
   const { translate } = useTranslations();
   const [errors, setErrors] = useState({ email: '', password: '', repeatPassword: '' });
   const {
@@ -26,7 +25,7 @@ const Auth: React.FC<AuthProps> = ({ type, onNavigate, performAction, alternateN
     setRepeatPassword,
     isFormFilled,
     handleSubmit,
-  } = useAuthState(type, performAction, onNavigate, errors);
+  } = useAuthState(type, performAction, errors);
 
   const emailRegex: RegExp = useMemo(() => /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/, []);
   const passwordRegex: RegExp = useMemo(() => /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{7,}$/, []);
