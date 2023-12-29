@@ -19,7 +19,7 @@ const ChooseLanguage: React.FC = () => {
       <LanguagePicker />
       <StandardButton
         text={'Continue'}
-        onPressFunction={hasSeenLanguagePicker} blackButton={false} />
+        onPressFunction={hasSeenLanguagePicker} blackButton={true} />
     </View>
   );
 };

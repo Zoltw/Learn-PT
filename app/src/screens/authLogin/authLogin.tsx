@@ -6,9 +6,11 @@ import { loginDisclaimer } from './variables';
 import { useAuthProvider } from '../../context/AuthProvider';
 import { navigate } from '../../../../rootNav/navigator';
 import { setHasSuccessfullyAuthenticated } from '../../storage/storage';
+import * as SecureStore from 'expo-secure-store';
 
 const AuthLogin: React.FC = () => {
   const { setIsAuth } = useAuthProvider();
+
   const performLogin = useCallback(async (email: string, password: string) => {
     try {
       const response = await fetch(`${process.env.EXPO_PUBLIC_SERVER_URL}/v1/users/login`, {
@@ -18,6 +20,10 @@ const AuthLogin: React.FC = () => {
       });
 
       if (response.ok) {
+        const data = await response.json();
+        const token = data.token;
+
+        await SecureStore.setItemAsync('jwt_token', token);
         await setHasSuccessfullyAuthenticated();
         setIsAuth(true);
       } else {
@@ -39,3 +45,4 @@ const AuthLogin: React.FC = () => {
 };
 
 export default AuthLogin;
+

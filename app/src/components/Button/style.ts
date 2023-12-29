@@ -19,21 +19,24 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  learnButton: {
+    width: 150,
+  },
   buttonText: {
     textAlign: 'center',
     fontWeight: 'bold',
   },
   buttonBlack: {
-    backgroundColor: '#fff',
-    borderColor: '#000',
+    backgroundColor: '#000',
+    borderColor: '#fff',
   },
   buttonBlackText: {
-    color: '#000',
+    color: '#fff',
   },
   buttonDefault: {
-    backgroundColor: '#000',
+    backgroundColor: '#fff',
   },
   buttonDefaultText: {
-    color: '#fff',
+    color: '#000',
   },
 });

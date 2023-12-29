@@ -34,8 +34,8 @@ const Welcome: React.FC = () => {
       <Text style={styles.title}>LearnPT</Text>
       <Text style={styles.subtitle}>{translate('Your AI Teacher')}</Text>
       <View style={styles.buttonContainer}>
-        <StandardButton text={translate('Sign in')} blackButton={false} onPressFunction={navigateToLogin}/>
-        <StandardButton text={translate('Register')} blackButton={true} onPressFunction={navigateToRegister}/>
+        <StandardButton text={translate('Sign in')} blackButton={true} onPressFunction={navigateToLogin}/>
+        <StandardButton text={translate('Register')} blackButton={false} onPressFunction={navigateToRegister}/>
       </View>
     </View>
   );
