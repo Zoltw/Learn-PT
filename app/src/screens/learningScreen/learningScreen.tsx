@@ -2,6 +2,15 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { Animated, ScrollView, View } from 'react-native';
 import { styles } from './styles';
 import { LearnButton } from '../../components/Button/LearnButton';
+import { navigate } from '../../../../rootNav/navigator';
+import { screenApp } from '../screens';
+
+interface Question {
+  word: string;
+  answers: Array<string>;
+  correctAnswer: string;
+  known: boolean | null
+}
 
 const questions = [
   {
@@ -49,7 +58,7 @@ const LearningScreen: React.FC = () => {
     }).start(callback);
   }, [fadeAnim]);
 
-  const sendResultsToBackend = useCallback((updatedQuestions) => {
+  const sendResultsToBackend = useCallback((updatedQuestions: Array<Question>) => {
     const knownWords = updatedQuestions.filter((q) => q.known === true).map((q) => q.word);
     const unknownWords = updatedQuestions.filter((q) => q.known === false).map((q) => q.word);
 
@@ -58,8 +67,7 @@ const LearningScreen: React.FC = () => {
     console.log('Unknown Words:', unknownWords);
   }, []);
 
-
-  const handleAnswer = useCallback((answer) => {
+  const handleAnswer = useCallback((answer: string) => {
     animateFade(0, () => {
       const isCorrect = answer === questionsData[currentQuestionIndex].correctAnswer;
       const updatedQuestions = [...questionsData];
@@ -71,6 +79,7 @@ const LearningScreen: React.FC = () => {
         setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
       } else {
         sendResultsToBackend(updatedQuestions);
+        navigate(screenApp.SUMMARY);
       }
 
       animateFade(1);
@@ -86,7 +95,7 @@ const LearningScreen: React.FC = () => {
   return (
     <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
       <Animated.Text style={[styles.text, { opacity: fadeAnim }]}>
-        {`What's the translation for '${question.word}'?`}
+        {question.word}
       </Animated.Text>
       <View style={styles.cont2}>
         {question.answers.map((answer, index) => (

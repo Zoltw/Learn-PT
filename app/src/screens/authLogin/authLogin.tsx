@@ -7,28 +7,36 @@ import { useAuthProvider } from '../../context/AuthProvider';
 import { navigate } from '../../../../rootNav/navigator';
 import { setHasSuccessfullyAuthenticated } from '../../storage/storage';
 import * as SecureStore from 'expo-secure-store';
+import * as Updates from 'expo-updates';
 
 const AuthLogin: React.FC = () => {
   const { setIsAuth } = useAuthProvider();
 
+  const fetchUserDetails = async (email: string, password: string) => {
+    const response = await fetch(`${process.env.EXPO_PUBLIC_SERVER_URL}/v1/users/login`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, password }),
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.message || 'Login failed');
+    }
+
+    return response.json();
+  };
+
   const performLogin = useCallback(async (email: string, password: string) => {
     try {
-      const response = await fetch(`${process.env.EXPO_PUBLIC_SERVER_URL}/v1/users/login`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password }),
-      });
+      const { token } = await fetchUserDetails(email, password);
+      await SecureStore.setItemAsync('jwt_token', token);
+      setIsAuth(true);
 
-      if (response.ok) {
-        const data = await response.json();
-        const token = data.token;
-
-        await SecureStore.setItemAsync('jwt_token', token);
-        await setHasSuccessfullyAuthenticated();
-        setIsAuth(true);
-      } else {
-        throw new Error('Login failed');
-      }
+      await Promise.all([
+        setHasSuccessfullyAuthenticated(),
+        Updates.reloadAsync(),
+      ]);
     } catch (error) {
       console.error(error.message);
     }

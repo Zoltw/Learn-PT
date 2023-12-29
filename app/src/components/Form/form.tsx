@@ -1,7 +1,7 @@
 // Form.js
 import React from 'react';
 import { Text, TextInput } from 'react-native';
-import { useTranslations } from '../../../../localization/useTranslations';
+import useTranslations from '../../hooks/useTranslations';
 import { formTypes, inputTypes } from './types';
 import { styles } from './styles';
 

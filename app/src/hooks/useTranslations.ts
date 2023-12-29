@@ -6,9 +6,11 @@ export interface UseTranslationsResult {
   translate: TFunction;
 }
 
-export const useTranslations = (): UseTranslationsResult => {
+const useTranslations = (): UseTranslationsResult => {
   const { t } = useTranslation();
   const translate = useMemo(() => t, [t]);
 
   return { translate };
 };
+
+export default useTranslations;

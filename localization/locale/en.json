@@ -10,6 +10,19 @@
     "Log in": "Log in",
     "Sign up": "Sign up",
     "Invalid email address": "Invalid email address",
-    "Password must be at least 7 characters long, include a number and an uppercase letter": "Password must be at least 7 characters long, include a number and an uppercase letter"
+    "Password must be at least 7 characters long, include a number and an uppercase letter": "Password must be at least 7 characters long, include a number and an uppercase letter",
+    "Statistics": "Statistics",
+    "Session Count:": "Session Count:",
+    "Total Time Spent:": "Total Time Spent:",
+    "Known Words Count:": "Known Words Count:",
+    "Unknown Words Count:": "Unknown Words Count:",
+    "Average Performance:": "Average Performance:",
+    "Current Streak:": "Current Streak:",
+    "Last Session Date:": "Last Session Date:",
+    "Average Feedback Rating:": "Average Feedback Rating:",
+    "minutes": "minutes",
+    "days": "days",
+    "Settings": "Settings",
+    "Back": "Back",
+    "Learn!": "Learn!"
 }
-  

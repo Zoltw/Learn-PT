@@ -6,9 +6,9 @@ export const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   contentContainer: {
-    flexGrow: 1, // This ensures that the container takes up the full height if the content is not enough
-    justifyContent: 'center', // Vertically center the content
-    alignItems: 'center', // Horizontally center the content
+    flexGrow: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   cont2: {
     flexDirection: 'row',
@@ -23,5 +23,7 @@ export const styles = StyleSheet.create({
   },
   text: {
     marginBottom: 50,
+    fontSize: 32,
+    fontWeight: 'bold',
   },
 });

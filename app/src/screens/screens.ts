@@ -4,6 +4,7 @@ export enum screenApp {
   AUTH_REGISTER = 'AuthRegister',
   DASHBOARD = 'Dashboard',
   LEARNING_SCREEN = 'LearningScreen',
+  SUMMARY = 'Summary',
   SETTINGS = 'Settings',
   CHOOSE_LANGUAGE = 'ChooseLanguage',
 }

@@ -10,6 +10,19 @@
     "Log in": "Zaloguj się",
     "Sign up": "Zarejestruj się",
     "Invalid email address": "Nieprawidłowy adres email",
-    "Password must be at least 7 characters long, include a number and an uppercase letter": "Hasło musi mieć co najmniej 7 znaków, zawierać cyfrę i dużą literę"
+    "Password must be at least 7 characters long, include a number and an uppercase letter": "Hasło musi mieć co najmniej 7 znaków, zawierać cyfrę i dużą literę",
+    "Statistics": "Statystyki",
+    "Session Count:": "Liczba Sesji:",
+    "Total Time Spent:": "Całkowity Czas Spędzony:",
+    "Known Words Count:": "Liczba Znanych Słów:",
+    "Unknown Words Count:": "Liczba Nieznanych Słów:",
+    "Average Performance:": "Średnia Wydajność:",
+    "Current Streak:": "Aktualna Seria:",
+    "Last Session Date:": "Data Ostatniej Sesji:",
+    "Average Feedback Rating:": "Średnia Ocena Opinii:",
+    "minutes": "minuty",
+    "days": "dni",
+    "Settings": "Ustawienia",
+    "Back": "Wróć",
+    "Learn!": "Ucz się!"
 }
-  

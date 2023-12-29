@@ -1,4 +1,3 @@
-// useLanguage.js
 import { useCallback, useState } from 'react';
 import { setLanguage } from '../storage/storage';
 import i18n from '../../../localization/i18n';

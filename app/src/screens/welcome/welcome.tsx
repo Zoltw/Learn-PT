@@ -2,7 +2,7 @@ import { Text, View } from 'react-native';
 import { styles } from './styles';
 import { StandardButton } from '../../components/Button/StandardButton';
 import { useCallback, useEffect, useRef } from 'react';
-import { useTranslations } from '../../../../localization/useTranslations';
+import useTranslations from '../../hooks/useTranslations';
 import { screenApp } from '../screens';
 import { navigate } from '../../../../rootNav/navigator';
 

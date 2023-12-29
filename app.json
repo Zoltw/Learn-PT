@@ -6,14 +6,21 @@
     "sdkVersion": "49.0.0",
     "platforms": [
       "ios",
-      "android",
-      "web"
+      "android"
     ],
     "android": {
       "package": "com.learnPt"
     },
     "ios": {
       "bundleIdentifier": "com.learnPt"
-    }
+    },
+    "plugins": [
+      [
+        "expo-updates",
+        {
+          "username": "learnPt"
+        }
+      ]
+    ]
   }
 }

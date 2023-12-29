@@ -1,6 +1,6 @@
 import React, { useCallback, useMemo, useState } from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
-import { useTranslations } from '../../../../localization/useTranslations';
+import useTranslations from '../../hooks/useTranslations';
 import Form from '../../components/Form/form';
 import { formTypes, inputTypes } from '../Form/types';
 import { styles } from './styles';
