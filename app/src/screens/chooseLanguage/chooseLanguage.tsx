@@ -1,11 +1,11 @@
 import React, { useCallback } from 'react';
 import { Text, View } from 'react-native';
-import { LanguagePicker } from '../../components/LanguagePicker/LanguagePicker';
+import LanguagePicker from '../../components/LanguagePicker/LanguagePicker';
 import { StandardButton } from '../../components/Button/StandardButton';
 import { styles } from './styles';
 import { screenApp } from '../screens';
 import { setLanguagePickerSeenBefore } from '../../storage/storage';
-import { navigate } from '../../../../root/navigator';
+import { navigate } from '../../root/navigator';
 
 const ChooseLanguage: React.FC = () => {
   const hasSeenLanguagePicker = useCallback(() => {

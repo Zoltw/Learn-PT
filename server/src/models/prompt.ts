@@ -8,8 +8,8 @@ interface Prompt {
   learnLanguage: string;
   levelOfHardness: string;
   goal: string;
-  knownWords: string[];
-  unknownWords: string[];
+  knownWords: Array<string>;
+  unknownWords: Array<string>;
   performance: number;
   customInstructions: CustomPrompt;
 }

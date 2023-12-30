@@ -1,5 +1,5 @@
 import React from 'react';
-import { navigate } from '../../../../root/navigator';
+import { navigate } from '../../root/navigator';
 import { Button } from 'react-native';
 import useTranslations from '../../hooks/useTranslations';
 

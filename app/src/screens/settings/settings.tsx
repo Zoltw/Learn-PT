@@ -1,10 +1,11 @@
-import { Text, View } from 'react-native';
+import { Button, Text, View } from 'react-native';
 import { styles } from './styles';
 import { StandardButton } from '../../components/Button/StandardButton';
 import useTranslations from '../../hooks/useTranslations';
 import { useCallback } from 'react';
 import { clearMemory, removeHasSuccessfullyAuthenticated } from '../../storage/storage';
 import * as Updates from 'expo-updates';
+import LanguagePicker from '../../components/LanguagePicker/LanguagePicker';
 
 const Settings: React.FC = () => {
   const { translate } = useTranslations();
@@ -26,8 +27,9 @@ const Settings: React.FC = () => {
   return (
     <View style={styles.container}>
       <Text>Setingsy</Text>
+      <LanguagePicker />
       <StandardButton text={translate('Logout')} blackButton={true} onPressFunction={Logout}/>
-      <StandardButton text={translate('App reset')} blackButton={true} onPressFunction={Reset}/>
+      <Button title={translate('App reset')} onPress={Reset} color={'red'} />
     </View>
   );
 };

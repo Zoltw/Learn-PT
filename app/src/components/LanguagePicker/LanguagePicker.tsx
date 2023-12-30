@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, TouchableOpacity, View } from 'react-native';
+import { Image, Text, TouchableOpacity, View } from 'react-native';
 import { styles } from './styles';
 import useLanguage from '../../hooks/useLanguage';
 
@@ -8,15 +8,18 @@ const languages = [
   { code: 'pl', name: 'Polski' },
 ];
 
-export const LanguagePicker: React.FC = () => {
+const LanguagePicker: React.FC = () => {
   const { selectedLanguage, handleLanguageChange } = useLanguage();
 
   return (
-    <View style={styles.container}>
+    <View style={styles.languagesContainer}>
       {languages.map((language, index) => (
         <TouchableOpacity
           key={index}
-          style={styles.languageItem}
+          style={[
+            styles.languageItem,
+            selectedLanguage === language.code && styles.selectedLanguageItem,
+          ]}
           onPress={() => handleLanguageChange(language.code)}
         >
           <Text style={selectedLanguage === language.code ? styles.selectedText : styles.text}>
@@ -28,3 +31,4 @@ export const LanguagePicker: React.FC = () => {
   );
 };
 
+export default LanguagePicker;

@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { Animated, ScrollView, View } from 'react-native';
 import { styles } from './styles';
 import { LearnButton } from '../../components/Button/LearnButton';
-import { navigate } from '../../../../root/navigator';
+import { navigate } from '../../root/navigator';
 import { screenApp } from '../screens';
 
 interface Question {
@@ -63,9 +63,9 @@ const LearningScreen: React.FC = () => {
     const unknownWords = updatedQuestions.filter((q) => q.known === false).map((q) => q.word);
 
     // Send data to backend
-    console.log('Known Words:', knownWords);
-    console.log('Unknown Words:', unknownWords);
+    navigate(screenApp.SUMMARY, { knownWords, unknownWords });
   }, []);
+
 
   const handleAnswer = useCallback((answer: string) => {
     animateFade(0, () => {
@@ -79,7 +79,6 @@ const LearningScreen: React.FC = () => {
         setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
       } else {
         sendResultsToBackend(updatedQuestions);
-        navigate(screenApp.SUMMARY);
       }
 
       animateFade(1);

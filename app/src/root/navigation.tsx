@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from 'react';
-import { getLanguagePickerSeenBefore } from '../app/src/storage/storage';
-import { SettingsHeaderButton } from '../app/src/components/Button/SettingsHeaderButton';
-import { SettingsHeaderBackButton } from '../app/src/components/Button/SettingsHeaderBackButton';
+import { getLanguagePickerSeenBefore } from '../storage/storage';
+import { SettingsHeaderButton } from '../components/Button/SettingsHeaderButton';
+import { SettingsHeaderBackButton } from '../components/Button/SettingsHeaderBackButton';
 import { createStackNavigator } from '@react-navigation/stack';
-import { screenApp } from '../app/src/screens/screens';
-import Welcome from '../app/src/screens/welcome/welcome';
-import AuthLogin from '../app/src/screens/authLogin/authLogin';
-import AuthRegister from '../app/src/screens/authRegister/authRegister';
-import Dashboard from '../app/src/screens/dashboard/dashboard';
-import LearningScreen from '../app/src/screens/learningScreen/learningScreen';
-import Settings from '../app/src/screens/settings/settings';
-import ChooseLanguage from '../app/src/screens/chooseLanguage/chooseLanguage';
-import Summary from '../app/src/screens/summary/summary';
-import LoadingScreen from '../app/src/screens/loading/loading';
+import { screenApp } from '../screens/screens';
+import Welcome from '../screens/welcome/welcome';
+import AuthLogin from '../screens/authLogin/authLogin';
+import AuthRegister from '../screens/authRegister/authRegister';
+import Dashboard from '../screens/dashboard/dashboard';
+import LearningScreen from '../screens/learningScreen/learningScreen';
+import Settings from '../screens/settings/settings';
+import ChooseLanguage from '../screens/chooseLanguage/chooseLanguage';
+import Summary from '../screens/summary/summary';
+import LoadingScreen from '../screens/loading/loading';
 
 
 const PreAuthNavigatorStack = createStackNavigator();
