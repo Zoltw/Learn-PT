@@ -5,7 +5,7 @@ import { StandardButton } from '../../components/Button/StandardButton';
 import { styles } from './styles';
 import { screenApp } from '../screens';
 import { setLanguagePickerSeenBefore } from '../../storage/storage';
-import { navigate } from '../../../../rootNav/navigator';
+import { navigate } from '../../../../root/navigator';
 
 const ChooseLanguage: React.FC = () => {
   const hasSeenLanguagePicker = useCallback(() => {

@@ -4,7 +4,7 @@ import { removeHasSuccessfullyAuthenticated } from '../../storage/storage';
 import { StandardButton } from '../../components/Button/StandardButton';
 import { Text, View } from 'react-native';
 import { styles } from './styles';
-import { navigate } from '../../../../rootNav/navigator';
+import { navigate } from '../../../../root/navigator';
 import { screenApp } from '../screens';
 
 const Summary: React.FC = () => {

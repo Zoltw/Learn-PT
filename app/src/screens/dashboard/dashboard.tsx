@@ -4,7 +4,7 @@ import { styles } from './styles';
 import LoadingScreen from '../loading/loading';
 import useTranslations from '../../hooks/useTranslations';
 import { StandardButton } from '../../components/Button/StandardButton';
-import { navigate } from '../../../../rootNav/navigator';
+import { navigate } from '../../../../root/navigator';
 import { screenApp } from '../screens';
 
 const fetchMockUserStats = (userId) => {

@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { Animated, ScrollView, View } from 'react-native';
 import { styles } from './styles';
 import { LearnButton } from '../../components/Button/LearnButton';
-import { navigate } from '../../../../rootNav/navigator';
+import { navigate } from '../../../../root/navigator';
 import { screenApp } from '../screens';
 
 interface Question {

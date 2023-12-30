@@ -38,3 +38,7 @@ export const setLanguage = async (value: string): Promise<void> => {
   return local.setItem(StorageKey.APP_LANGUAGE, value);
 };
 
+export const clearMemory = async (): Promise<void> => {
+  return local.clear();
+};
+

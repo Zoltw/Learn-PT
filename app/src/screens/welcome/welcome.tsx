@@ -4,7 +4,7 @@ import { StandardButton } from '../../components/Button/StandardButton';
 import { useCallback, useEffect, useRef } from 'react';
 import useTranslations from '../../hooks/useTranslations';
 import { screenApp } from '../screens';
-import { navigate } from '../../../../rootNav/navigator';
+import { navigate } from '../../../../root/navigator';
 
 const Welcome: React.FC = () => {
   const isMounted = useRef(true);

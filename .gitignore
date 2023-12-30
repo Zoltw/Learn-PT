@@ -35,3 +35,5 @@ server/env
 
 # typescript
 *.tsbuildinfo
+
+.vscode

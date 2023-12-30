@@ -3,7 +3,7 @@ import Auth from '../../components/Auth/Auth';
 import { formTypes } from '../../components/Form/types';
 import { screenApp } from '../screens';
 import { registerDisclaimer } from './variables';
-import { navigate } from '../../../../rootNav/navigator';
+import { navigate } from '../../../../root/navigator';
 
 const AuthRegister: React.FC = () => {
   const performRegistration = useCallback(async (email: string, password: string, repeatPassword: string) => {

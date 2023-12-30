@@ -4,7 +4,7 @@ import { formTypes } from '../../components/Form/types';
 import { screenApp } from '../screens';
 import { loginDisclaimer } from './variables';
 import { useAuthProvider } from '../../context/AuthProvider';
-import { navigate } from '../../../../rootNav/navigator';
+import { navigate } from '../../../../root/navigator';
 import { setHasSuccessfullyAuthenticated } from '../../storage/storage';
 import * as SecureStore from 'expo-secure-store';
 import * as Updates from 'expo-updates';
