@@ -1,4 +1,8 @@
+import { config } from 'dotenv';
 import { RequestHandler } from 'express';
+import { expressjwt } from 'express-jwt';
+
+config();
 
 export const invalidRoute: RequestHandler = (_req, res) => {
   res.contentType('text/plain');
@@ -8,6 +12,12 @@ export const invalidRoute: RequestHandler = (_req, res) => {
 export const notImplemented: RequestHandler = (_req, res) => {
   res.sendStatus(501);
 };
+
+export const authenticateToken = expressjwt({
+  secret: process.env.JWT_SECRET!,
+  algorithms: ['HS256'],
+  requestProperty: 'auth',
+});
 
 export const accessControl: RequestHandler = (req, res, next) => {
   res.header('Access-Control-Allow-Origin', req.header('Origin') || '*');

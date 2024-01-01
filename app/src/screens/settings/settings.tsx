@@ -6,6 +6,7 @@ import { useCallback } from 'react';
 import { clearMemory, removeHasSuccessfullyAuthenticated } from '../../storage/storage';
 import * as Updates from 'expo-updates';
 import LanguagePicker from '../../components/LanguagePicker/LanguagePicker';
+import LevelPicker from '../../components/LevelPicker/LevelPicker';
 
 const Settings: React.FC = () => {
   const { translate } = useTranslations();
@@ -26,6 +27,8 @@ const Settings: React.FC = () => {
 
   return (
     <View style={styles.container}>
+      <Text>Setingsy</Text>
+      <LevelPicker/>
       <Text>Setingsy</Text>
       <LanguagePicker />
       <StandardButton text={translate('Logout')} blackButton={true} onPressFunction={Logout}/>

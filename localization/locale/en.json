@@ -26,5 +26,12 @@
     "Back": "Back",
     "Learn!": "Learn!",
     "Logout": "Logout",
-    "App reset": "App reset"
+    "App reset": "App reset",
+    "Back to dashboard": "Back to dashboard",
+    "A1 - Discoverer": "A1 - Discoverer",
+    "A2 - Explorer": "A2 - Explorer",
+    "B1 - Conversationalist": "B1 - Conversationalist",
+    "B2 - Navigator": "B2 - Navigator",
+    "C1 - Articulator": "C1 - Articulator",
+    "C2 - Master": "C2 - Master"
 }

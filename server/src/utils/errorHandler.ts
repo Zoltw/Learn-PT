@@ -1,6 +1,10 @@
-import { NextFunction, Request, Response } from 'express';
+import { NextFunction, Response } from 'express';
+import { Request } from 'express-jwt';
 
 export const errorHandler = (err: Error, req: Request, res: Response, next: NextFunction) => {
-  console.error(err.stack);
-  res.status(500).send('error');
+  if (err.name === 'UnauthorizedError') {
+    res.status(401).send('Invalid token');
+  } else {
+    next(err);
+  }
 };

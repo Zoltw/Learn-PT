@@ -7,4 +7,5 @@ export enum screenApp {
   SUMMARY = 'Summary',
   SETTINGS = 'Settings',
   CHOOSE_LANGUAGE = 'ChooseLanguage',
+  CHOOSE_GOAL = 'ChooseGoal',
 }

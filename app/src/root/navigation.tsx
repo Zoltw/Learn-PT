@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { getLanguagePickerSeenBefore } from '../storage/storage';
+import React from 'react';
+import { getGoalPickerSeenBefore, getLanguagePickerSeenBefore } from '../storage/storage';
 import { SettingsHeaderButton } from '../components/Button/SettingsHeaderButton';
 import { SettingsHeaderBackButton } from '../components/Button/SettingsHeaderBackButton';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -13,19 +13,13 @@ import Settings from '../screens/settings/settings';
 import ChooseLanguage from '../screens/chooseLanguage/chooseLanguage';
 import Summary from '../screens/summary/summary';
 import LoadingScreen from '../screens/loading/loading';
-
+import ChooseGoal from '../screens/chooseGoal/chooseGoal';
+import { useAsyncInitState } from '../hooks/useAsyncInitState';
 
 const PreAuthNavigatorStack = createStackNavigator();
 
 export const PreAuthFlow = () => {
-  const [isLanguagePickerSeenBefore, setIsLanguagePickerSeenBefore] = useState<boolean | null>(null);
-  useEffect(() => {
-    const checkLanguagePickerStatus = async () => {
-      const langPickerStatus = await getLanguagePickerSeenBefore();
-      setIsLanguagePickerSeenBefore(langPickerStatus);
-    };
-    checkLanguagePickerStatus();
-  }, []);
+  const isLanguagePickerSeenBefore = useAsyncInitState(getLanguagePickerSeenBefore);
 
   if (isLanguagePickerSeenBefore === null) {
     return <LoadingScreen/>;
@@ -50,6 +44,12 @@ export const PreAuthFlow = () => {
 const PostAuthNavigatorStack = createStackNavigator();
 
 export const PostAuthFlow = () => {
+  const isGoalPickerSeenBefore = useAsyncInitState(getGoalPickerSeenBefore);
+
+  if (isGoalPickerSeenBefore === null) {
+    return <LoadingScreen/>;
+  }
+
   return (
     <PostAuthNavigatorStack.Navigator
       screenOptions={{
@@ -58,8 +58,11 @@ export const PostAuthFlow = () => {
         gestureEnabled: false,
         cardOverlayEnabled: true,
       }}
-      initialRouteName={screenApp.DASHBOARD}
+      initialRouteName={isGoalPickerSeenBefore ? screenApp.DASHBOARD : screenApp.CHOOSE_GOAL}
     >
+      {!isGoalPickerSeenBefore && <PostAuthNavigatorStack.Screen name={screenApp.CHOOSE_GOAL} component={ChooseGoal} options={{
+        headerLeft: () => <></>,
+      }}/>}
       <PostAuthNavigatorStack.Screen name={screenApp.DASHBOARD} component={Dashboard} options={{
         headerRight: () => (
           <SettingsHeaderButton/>

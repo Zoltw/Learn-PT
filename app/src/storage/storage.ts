@@ -2,6 +2,8 @@ import { local } from '.';
 
 enum StorageKey {
   LANGUAGE_PICKER = 'languagePicker',
+  GOAL_PICKER = 'GoalPicker',
+  SPECIFIC_GOAL = 'SpecificGoal',
   APP_LANGUAGE = 'appLanguage',
   HAS_SUCCESSFULLY_AUTHENTICATED = 'hasSuccessfullyAuthenticated',
 }
@@ -16,6 +18,22 @@ export const setLanguagePickerSeenBefore = async (): Promise<void> => {
 
 export const removeLanguagePickerSeenBefore = async (): Promise<void> => {
   return local.removeItem(StorageKey.LANGUAGE_PICKER);
+};
+
+export const getGoalPickerSeenBefore = async (): Promise<boolean> => {
+  return (await local.getItem(StorageKey.GOAL_PICKER)) === 'true';
+};
+
+export const setGoalPickerSeenBefore = async (): Promise<void> => {
+  return local.setItem(StorageKey.GOAL_PICKER, 'true');
+};
+
+export const getGoal = async (): Promise<string> => {
+  return (await local.getItem(StorageKey.SPECIFIC_GOAL));
+};
+
+export const setGoal = async (value: string): Promise<void> => {
+  return local.setItem(StorageKey.SPECIFIC_GOAL, value);
 };
 
 export const getHasSuccessfullyAuthenticated = async (): Promise<boolean> => {

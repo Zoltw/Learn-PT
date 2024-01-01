@@ -1,8 +1,3 @@
-interface CustomPrompt {
-  screenType: string;
-  instructions: string;
-}
-
 interface Prompt {
   baseLanguage: string;
   learnLanguage: string;
@@ -11,5 +6,4 @@ interface Prompt {
   knownWords: Array<string>;
   unknownWords: Array<string>;
   performance: number;
-  customInstructions: CustomPrompt;
 }
