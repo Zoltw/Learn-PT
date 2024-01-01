@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useCallback } from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
 import { styles } from './styles';
 import useTranslations from '../../hooks/useTranslations';
 import useLevel from '../../hooks/useLevel';
+import { setGoalPickerSeenBefore } from '../../storage/storage';
 
 enum level {
   A1 = 'A1',
@@ -26,6 +27,11 @@ const LevelPicker: React.FC = () => {
     { level: level.C2, name: translate('C2 - Master') },
   ];
 
+  const handleLevelPicker = useCallback((level) => {
+    setGoalPickerSeenBefore();
+    handleLevelChange(level);
+  }, [handleLevelChange]);
+
   return (
     <View style={styles.languagesContainer}>
       {languageLevel.map((language, index) => (
@@ -35,7 +41,7 @@ const LevelPicker: React.FC = () => {
             styles.languageItem,
             selectedLevel === language.level && styles.selectedLanguageItem,
           ]}
-          onPress={() => handleLevelChange(language.level)}
+          onPress={() => handleLevelPicker(language.level)}
         >
           <Text style={selectedLevel === language.level ? styles.selectedText : styles.text}>
             {language.name}

@@ -12,38 +12,9 @@ interface Question {
   known: boolean | null
 }
 
-const questions = [
-  {
-    word: 'Hola',
-    answers: ['Hello', 'Goodbye', 'Please', 'Thank you'],
-    correctAnswer: 'Hello',
-    known: null,
-  },
-  {
-    word: 'Huj',
-    answers: ['Helso', 'Goodhbye', 'Please', 'Thank you'],
-    correctAnswer: 'Goodhbye',
-    known: null,
-  },
-  {
-    word: 'Hfuj',
-    answers: ['Hellso', 'Goodbye', 'Pleashe', 'Thank you'],
-    correctAnswer: 'Pleashe',
-    known: null,
-  },
-  {
-    word: 'Huddj',
-    answers: ['Helslo', 'Goodbye', 'Pleagse', 'Thank you'],
-    correctAnswer: 'Hello',
-    known: null,
-  },
-  {
-    word: 'Hdduj',
-    answers: ['Hesllo', 'Goodbgye', 'Please', 'Thank yofu'],
-    correctAnswer: 'Thank yofu',
-    known: null,
-  },
-];
+// eslint-disable-next-line max-len
+const questions = JSON.parse('[{"word": "Ananas", "answers": ["Pineapple", "Banana", "Apple", "Orange"], "correctAnswer": "Pineapple"}, {"word": "Chomik", "answers": ["Rabbit", "Hamster", "Mouse", "Cat"], "correctAnswer": "Hamster"}, {"word": "Dziękuję", "answers": ["Please", "Thank you", "Welcome", "Sorry"], "correctAnswer": "Thank you"}, {"word": "Do widzenia", "answers": ["Hello", "Goodbye", "See you", "Good night"], "correctAnswer": "Goodbye"}, {"word": "Cześć", "answers": ["Bye", "Cheers", "Hello", "Good evening"], "correctAnswer": "Hello"}, {"word": "Pomarańcza", "answers": ["Grapefruit", "Peach", "Orange", "Lemon"], "correctAnswer": "Orange"}, {"word": "Kot", "answers": ["Dog", "Cat", "Horse", "Cow"], "correctAnswer": "Cat"}, {"word": "Jabłko", "answers": ["Pear", "Banana", "Apple", "Cherry"], "correctAnswer": "Apple"}, {"word": "Pies", "answers": ["Cat", "Mouse", "Dog", "Rabbit"], "correctAnswer": "Dog"}, {"word": "Książka", "answers": ["Magazine", "Book", "Newspaper", "Letter"], "correctAnswer": "Book"}, {"word": "Samochód", "answers": ["Bicycle", "Airplane", "Car", "Train"], "correctAnswer": "Car"}]');
+
 
 const LearningScreen: React.FC = () => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);

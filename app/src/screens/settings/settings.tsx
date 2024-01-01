@@ -11,14 +11,14 @@ import LevelPicker from '../../components/LevelPicker/LevelPicker';
 const Settings: React.FC = () => {
   const { translate } = useTranslations();
 
-  const Logout = useCallback(async () => {
+  const userLogout = useCallback(async () => {
     await Promise.all([
       removeHasSuccessfullyAuthenticated(),
       Updates.reloadAsync(),
     ]);
   }, []);
 
-  const Reset = useCallback(async () => {
+  const applicationReset = useCallback(async () => {
     await Promise.all([
       clearMemory(),
       Updates.reloadAsync(),
@@ -27,12 +27,12 @@ const Settings: React.FC = () => {
 
   return (
     <View style={styles.container}>
-      <Text>Setingsy</Text>
+      <Text>{translate('Change your goal')}</Text>
       <LevelPicker/>
-      <Text>Setingsy</Text>
+      <Text style={styles.textCont}>{translate('Change your language')}</Text>
       <LanguagePicker />
-      <StandardButton text={translate('Logout')} blackButton={true} onPressFunction={Logout}/>
-      <Button title={translate('App reset')} onPress={Reset} color={'red'} />
+      <StandardButton text={translate('Logout')} blackButton={true} onPressFunction={userLogout}/>
+      <Button title={translate('App reset')} onPress={applicationReset} color={'red'} />
     </View>
   );
 };

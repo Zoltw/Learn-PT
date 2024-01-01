@@ -3,7 +3,7 @@ import { Text, View } from 'react-native';
 import { StandardButton } from '../../components/Button/StandardButton';
 import { styles } from './styles';
 import { screenApp } from '../screens';
-import { setLanguagePickerSeenBefore } from '../../storage/storage';
+import { setGoalPickerSeenBefore } from '../../storage/storage';
 import { navigate } from '../../root/navigator';
 import LevelPicker from '../../components/LevelPicker/LevelPicker';
 import useTranslations from '../../hooks/useTranslations';
@@ -12,7 +12,7 @@ import useTranslations from '../../hooks/useTranslations';
 const ChooseGoal: React.FC = () => {
   const { translate } = useTranslations();
   const hasSeenLanguagePicker = useCallback(() => {
-    setLanguagePickerSeenBefore();
+    setGoalPickerSeenBefore();
     navigate(screenApp.DASHBOARD);
   }, []);
 

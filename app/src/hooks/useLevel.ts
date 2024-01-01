@@ -6,10 +6,8 @@ const useLevel = () => {
 
   const handleLevelChange = useCallback(async (level: string) => {
     setSelectedLevel(level);
-    await Promise.all([
-      setGoal(level),
-      sendUserLevel(level),
-    ]);
+    await setGoal(level);
+    await sendUserLevel(level);
   }, []);
 
   const sendUserLevel = async (level: string) => {

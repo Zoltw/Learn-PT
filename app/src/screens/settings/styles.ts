@@ -7,8 +7,7 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  resetButton: {
-    color: 'red',
-    marginTop: 50,
+  textCont: {
+    marginTop: 40,
   },
 });
