@@ -4,15 +4,7 @@ import { styles } from './styles';
 import useTranslations from '../../hooks/useTranslations';
 import useLevel from '../../hooks/useLevel';
 import { setGoalPickerSeenBefore } from '../../storage/storage';
-
-enum level {
-  A1 = 'A1',
-  A2 = 'A2',
-  B1 = 'B1',
-  B2 = 'B2',
-  C1 = 'C1',
-  C2 = 'C2'
-}
+import { level } from './languageLevels';
 
 const LevelPicker: React.FC = () => {
   const { translate } = useTranslations();

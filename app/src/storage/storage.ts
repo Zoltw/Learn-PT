@@ -4,6 +4,7 @@ enum StorageKey {
   LANGUAGE_PICKER = 'languagePicker',
   GOAL_PICKER = 'GoalPicker',
   SPECIFIC_GOAL = 'SpecificGoal',
+  USER_ID = 'UserID',
   APP_LANGUAGE = 'appLanguage',
   HAS_SUCCESSFULLY_AUTHENTICATED = 'hasSuccessfullyAuthenticated',
 }
@@ -34,6 +35,14 @@ export const getGoal = async (): Promise<string> => {
 
 export const setGoal = async (value: string): Promise<void> => {
   return local.setItem(StorageKey.SPECIFIC_GOAL, value);
+};
+
+export const getUserID = async (): Promise<string> => {
+  return (await local.getItem(StorageKey.USER_ID));
+};
+
+export const setUserIDToStorage = async (value: string): Promise<void> => {
+  return local.setItem(StorageKey.USER_ID, value);
 };
 
 export const getHasSuccessfullyAuthenticated = async (): Promise<boolean> => {

@@ -4,6 +4,7 @@ import { styles } from './styles';
 import { LearnButton } from '../../components/Button/LearnButton';
 import { navigate } from '../../root/navigator';
 import { screenApp } from '../screens';
+import { sendStatisticsToService } from './serviceCom';
 
 interface Question {
   word: string;
@@ -12,8 +13,8 @@ interface Question {
   known: boolean | null
 }
 
-// eslint-disable-next-line max-len
-const questions = JSON.parse('[{"word": "Ananas", "answers": ["Pineapple", "Banana", "Apple", "Orange"], "correctAnswer": "Pineapple"}, {"word": "Chomik", "answers": ["Rabbit", "Hamster", "Mouse", "Cat"], "correctAnswer": "Hamster"}, {"word": "Dziękuję", "answers": ["Please", "Thank you", "Welcome", "Sorry"], "correctAnswer": "Thank you"}, {"word": "Do widzenia", "answers": ["Hello", "Goodbye", "See you", "Good night"], "correctAnswer": "Goodbye"}, {"word": "Cześć", "answers": ["Bye", "Cheers", "Hello", "Good evening"], "correctAnswer": "Hello"}, {"word": "Pomarańcza", "answers": ["Grapefruit", "Peach", "Orange", "Lemon"], "correctAnswer": "Orange"}, {"word": "Kot", "answers": ["Dog", "Cat", "Horse", "Cow"], "correctAnswer": "Cat"}, {"word": "Jabłko", "answers": ["Pear", "Banana", "Apple", "Cherry"], "correctAnswer": "Apple"}, {"word": "Pies", "answers": ["Cat", "Mouse", "Dog", "Rabbit"], "correctAnswer": "Dog"}, {"word": "Książka", "answers": ["Magazine", "Book", "Newspaper", "Letter"], "correctAnswer": "Book"}, {"word": "Samochód", "answers": ["Bicycle", "Airplane", "Car", "Train"], "correctAnswer": "Car"}]');
+// eslint-disable-next-line max-len, quotes
+const questions = JSON.parse("[{\"word\": \"Ananas\", \"answers\": [\"Pineapple\", \"Banana\", \"Apple\", \"Orange\"], \"correctAnswer\": \"Pineapple\"}, {\"word\": \"Chomik\", \"answers\": [\"Rabbit\", \"Hamster\", \"Mouse\", \"Cat\"], \"correctAnswer\": \"Hamster\"}, {\"word\": \"Dziękuję\", \"answers\": [\"Please\", \"Thank you\", \"Welcome\", \"Sorry\"], \"correctAnswer\": \"Thank you\"}, {\"word\": \"Do widzenia\", \"answers\": [\"Hello\", \"Goodbye\", \"See you\", \"Good night\"], \"correctAnswer\": \"Goodbye\"}, {\"word\": \"Cześć\", \"answers\": [\"Bye\", \"Cheers\", \"Hello\", \"Good evening\"], \"correctAnswer\": \"Hello\"}, {\"word\": \"Pomarańcza\", \"answers\": [\"Grapefruit\", \"Peach\", \"Orange\", \"Lemon\"], \"correctAnswer\": \"Orange\"}, {\"word\": \"Kot\", \"answers\": [\"Dog\", \"Cat\", \"Horse\", \"Cow\"], \"correctAnswer\": \"Cat\"}, {\"word\": \"Jabłko\", \"answers\": [\"Pear\", \"Banana\", \"Apple\", \"Cherry\"], \"correctAnswer\": \"Apple\"}, {\"word\": \"Pies\", \"answers\": [\"Cat\", \"Mouse\", \"Dog\", \"Rabbit\"], \"correctAnswer\": \"Dog\"}, {\"word\": \"Książka\", \"answers\": [\"Magazine\", \"Book\", \"Newspaper\", \"Letter\"], \"correctAnswer\": \"Book\"}, {\"word\": \"Samochód\", \"answers\": [\"Bicycle\", \"Airplane\", \"Car\", \"Train\"], \"correctAnswer\": \"Car\"}]");
 
 
 const LearningScreen: React.FC = () => {
@@ -34,9 +35,9 @@ const LearningScreen: React.FC = () => {
     const unknownWords = updatedQuestions.filter((q) => q.known === false).map((q) => q.word);
 
     // Send data to backend
+    // sendStatisticsToService(knownWords, unknownWords)
     navigate(screenApp.SUMMARY, { knownWords, unknownWords });
   }, []);
-
 
   const handleAnswer = useCallback((answer: string) => {
     animateFade(0, () => {

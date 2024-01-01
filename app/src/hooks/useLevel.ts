@@ -1,20 +1,35 @@
-import { useCallback, useState } from 'react';
-import { setGoal } from '../storage/storage';
+import { useCallback, useEffect, useState } from 'react';
+import { getGoal, getUserID, setGoal } from '../storage/storage';
+import { level } from '../components/LevelPicker/languageLevels';
 
 const useLevel = () => {
   const [selectedLevel, setSelectedLevel] = useState<string>(null);
 
-  const handleLevelChange = useCallback(async (level: string) => {
-    setSelectedLevel(level);
-    await setGoal(level);
-    await sendUserLevel(level);
+  useEffect(() => {
+    const fetchInitialLevel = async () => {
+      setSelectedLevel(await getGoal() || level.A1);
+    };
+
+    fetchInitialLevel();
   }, []);
 
-  const sendUserLevel = async (level: string) => {
-    const response = await fetch(`${process.env.EXPO_PUBLIC_SERVER_URL}/v1/users/level`, {
+  const handleLevelChange = useCallback(async (level: string) => {
+    if (level !== selectedLevel) {
+      await setGoal(level);
+      const [result, userId] = await Promise.all([getGoal(), getUserID()]);
+      setSelectedLevel(result);
+      await sendUserLevel(result, userId);
+    }
+  }, [selectedLevel]);
+
+
+  const sendUserLevel = async (goal: string, userId: string) => {
+    const response = await fetch(`${process.env.EXPO_PUBLIC_SERVER_URL}/v1/users/level/${userId}`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ level }),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ goal }),
     });
 
     if (!response.ok) {

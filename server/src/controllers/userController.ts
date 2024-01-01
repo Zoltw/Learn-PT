@@ -42,3 +42,20 @@ export const getUser = async (req: Request, res: Response): Promise<void> => {
     res.status(404).json({ message: error });
   }
 };
+
+export const updateUserGoal = async (req: Request, res: Response): Promise<void> => {
+  const { userId } = req.params;
+  const { goal } = req.body;
+
+  try {
+    const updatedUser = await userService.updateUserGoal(userId, goal);
+    if (updatedUser) {
+      res.json('ok');
+    } else {
+      res.status(404).json({ message: 'User not found' });
+    }
+  } catch (error) {
+    res.status(500).json({ message: error || 'Internal Server Error' });
+  }
+};
+

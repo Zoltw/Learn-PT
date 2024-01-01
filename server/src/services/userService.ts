@@ -31,3 +31,9 @@ export const updateUser = async (userId: string, userData: Partial<UserInterface
 
   return await User.findByIdAndUpdate(userId, userData, { new: true });
 };
+
+export const updateUserGoal = async (userId: string, userGoal: string): Promise<UserInterface | null> => {
+  const updatedUser = await User.findByIdAndUpdate(userId, { goal: userGoal }, { new: true });
+  return updatedUser;
+};
+

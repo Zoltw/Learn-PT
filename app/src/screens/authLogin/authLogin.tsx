@@ -5,7 +5,7 @@ import { screenApp } from '../screens';
 import { loginDisclaimer } from './variables';
 import { useAuthProvider } from '../../context/AuthProvider';
 import { navigate } from '../../root/navigator';
-import { setHasSuccessfullyAuthenticated } from '../../storage/storage';
+import { setHasSuccessfullyAuthenticated, setUserIDToStorage } from '../../storage/storage';
 import * as SecureStore from 'expo-secure-store';
 import * as Updates from 'expo-updates';
 
@@ -29,11 +29,12 @@ const AuthLogin: React.FC = () => {
 
   const performLogin = useCallback(async (email: string, password: string) => {
     try {
-      const { token } = await fetchUserDetails(email, password);
+      const { token, user } = await fetchUserDetails(email, password);
       await SecureStore.setItemAsync('jwt_token', token);
       setIsAuth(true);
 
       await Promise.all([
+        setUserIDToStorage(user._id),
         setHasSuccessfullyAuthenticated(),
         Updates.reloadAsync(),
       ]);
