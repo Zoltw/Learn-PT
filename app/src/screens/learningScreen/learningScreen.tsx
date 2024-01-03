@@ -20,6 +20,15 @@ const LearningScreen: React.FC = () => {
   const [questionsData, setQuestionsData] = useState<Array<Question>>([]);
   const fadeAnim = useRef(new Animated.Value(0)).current;
 
+  const shuffleArray = (array) => {
+    const shuffledArray = Array.from(array);
+    for (let i = shuffledArray.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffledArray[i], shuffledArray[j]] = [shuffledArray[j], shuffledArray[i]];
+    }
+    return shuffledArray;
+  };
+
   const animateFade = useCallback((toValue, callback?) => {
     Animated.timing(fadeAnim, {
       toValue,
@@ -28,11 +37,10 @@ const LearningScreen: React.FC = () => {
     }).start(callback);
   }, [fadeAnim]);
 
-  const sendResultsToBackend = useCallback((updatedQuestions: Array<Question>) => {
+  const sendResultsToSummary = useCallback((updatedQuestions: Array<Question>) => {
     const knownWords = updatedQuestions.filter((q) => q.known === true).map((q) => q.word);
     const unknownWords = updatedQuestions.filter((q) => q.known === false).map((q) => q.word);
 
-    // sendStatisticsToService(knownWords, unknownWords)
     navigate(screenApp.SUMMARY, { knownWords, unknownWords });
   }, []);
 
@@ -50,12 +58,12 @@ const LearningScreen: React.FC = () => {
       if (currentQuestionIndex < questionsData.length - 1) {
         setCurrentQuestionIndex(currentQuestionIndex + 1);
       } else {
-        sendResultsToBackend(updatedQuestions);
+        sendResultsToSummary(updatedQuestions);
       }
 
       animateFade(1);
     });
-  }, [animateFade, currentQuestionIndex, questionsData, sendResultsToBackend]);
+  }, [animateFade, currentQuestionIndex, questionsData, sendResultsToSummary]);
 
 
   useEffect(() => {
@@ -72,7 +80,12 @@ const LearningScreen: React.FC = () => {
         const fetchedQuestions = message.lesson ? JSON.parse(message.lesson) : JSON.parse(message);
 
         if (Array.isArray(fetchedQuestions) && fetchedQuestions.length > 0) {
-          setQuestionsData(fetchedQuestions);
+          const questionsWithShuffledAnswers = fetchedQuestions.map((question) => ({
+            ...question,
+            answers: shuffleArray(question.answers),
+          }));
+
+          setQuestionsData(questionsWithShuffledAnswers);
           setCurrentQuestionIndex(0);
         } else {
           console.error('Fetched data is not an array of questions');

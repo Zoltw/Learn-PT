@@ -3,11 +3,10 @@ import useTranslations from '../../hooks/useTranslations';
 import { StandardButton } from '../../components/Button/StandardButton';
 import { Text, View } from 'react-native';
 import { styles } from './styles';
-import { navigate } from '../../root/navigator';
 import { screenApp } from '../screens';
 import { RouteProp, useRoute } from '@react-navigation/native';
 import { getUserID } from '../../storage/storage';
-
+import * as Updates from 'expo-updates';
 interface RouteParams {
   knownWords: Array<string>;
   unknownWords: Array<string>;
@@ -36,10 +35,9 @@ const Summary: React.FC = () => {
         throw new Error(errorData.message || 'Send level failed');
       }
 
-      navigate(screenApp.DASHBOARD);
+      Updates.reloadAsync();
       return response.json();
     } catch {};
-    navigate(screenApp.DASHBOARD);
   }, [knownWords, unknownWords]);
 
   return (

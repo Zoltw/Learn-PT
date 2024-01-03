@@ -18,7 +18,8 @@ const promptTemplate = {
     wantLearn: ". and I want to learn ",
     goal: ". My language level goal is ",
     knownWords: ". I've already known these words: ",
-    unknownWords: ", but still don't know these words: ",
+    knownDisclaimer: " and please do not repeat these words in your response.",
+    unknownWords: " Still don't know these words: ",
     unknownWordsFallback: ". I still don't know these words: ",
     examplePrompt: "I want you to act as a language Teacher.  You're response will be used in mobile app for learning languages. Response with my rules. Prepare lesson depending on the user goal, known and unknown words, and actual performance. It's your decision how much words will be to solve but please minimum 10. Response should always looks in this way: '[{\"word\": \"Ananas\", \"answers\": [\"Pineapple\", \"Banana\", \"Apple\", \"Orange\"], \"correctAnswer\": \"Pineapple\"}, {\"word\": \"Chomik\", \"answers\": [\"Rabbit\", \"Hamster\", \"Mouse\", \"Cat\"], \"correctAnswer\": \"Hamster\"}]'. Reponse me always with JSON which will be readable for my code wihout any `\\`, '\n', '```json' etc. Specs: Base language is English, I want to Learn Polish. My level language goal is C2, I've already know these words: ['Hello', 'Goodbye', 'Thank you', 'Banana', 'Apple']."
 };
@@ -43,7 +44,7 @@ export const createPrompt = (user: UserInterface | null): string => {
         return `${basePart}${languagePart}`;
     }
 
-    const knownWordsPart = knownWords.length ? `${promptTemplate.knownWords}${knownWords.join(', ')}` : '';
+    const knownWordsPart = knownWords.length ? `${promptTemplate.knownWords}${knownWords.join(', ')}${promptTemplate.knownDisclaimer}` : '';
     const unknownWordsPart = unknownWords.length ? `${promptTemplate.unknownWords}${unknownWords.join(', ')}` : promptTemplate.unknownWordsFallback;
 
     if (knownWords.length && !unknownWords.length) {

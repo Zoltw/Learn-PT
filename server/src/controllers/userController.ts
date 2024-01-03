@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import * as userService from '../services/userService';
+import * as statisticsService from '../services/statisticsService';
 import { UserInterface } from '../models/user';
 import jwt from 'jsonwebtoken';
 
@@ -97,4 +98,19 @@ export const updateUserWords = async (req: Request, res: Response): Promise<void
     res.status(500).json({ message: error || 'Internal Server Error' });
   }
 };
+
+export const getAllUserStats = async (req: Request, res: Response): Promise<void> => {
+  const { userId } = req.params;
+  try {
+    const stats = await statisticsService.getUserStats(userId);
+    res.json(stats);
+  } catch (error) {
+    if (error === 'User not found') {
+      res.status(404).json({ message: error });
+    } else {
+      res.status(500).json({ message: 'Error fetching user statistics', error });
+    }
+  }
+};
+
 

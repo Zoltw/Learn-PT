@@ -1,4 +1,3 @@
-import { SessionStats, SessionStatsInterface } from '../models/session';
 import { User, UserInterface } from '../models/user';
 
 const isConsecutiveDay = (previousDate: Date, currentDate: Date): boolean => {
@@ -7,75 +6,31 @@ const isConsecutiveDay = (previousDate: Date, currentDate: Date): boolean => {
   return diffDays === 1;
 };
 
-const addUserStats = async (email: string): Promise<void> => {
-  try {
-    let user = await User.findOne({ email: email });
-    if (!user) {
-      user = new User({
-        email: email,
-        password: '',
-        sessionCount: 0,
-        totalTimeSpent: 0,
-        knownWords: [],
-        unknownWords: [],
-        averagePerformance: 0,
-        streak: 0,
-        lastSessionDate: new Date(),
-      });
 
-      await user.save();
-    }
-  } catch (error) {
-    console.error('Error in addUserStats:', error);
+const calculateAveragePerformance = (user: UserInterface) => {
+  return user.totalTimeSpent ? user.sessionCount! / user.totalTimeSpent : 0;
+};
+
+
+export const updateUserLessonStats = async (userId: string): Promise<void> => {
+  const user = await User.findById(userId);
+  if (!user) throw new Error('User not found');
+
+  user.sessionCount = (user.sessionCount || 0) + 1;
+  user.lastSessionDate = new Date();
+
+  user.streak = isConsecutiveDay(user.lastSessionDate, new Date()) ? (user.streak || 0) + 1 : 1;
+
+  user.averagePerformance = calculateAveragePerformance(user);
+
+  await user.save();
+};
+
+export const getUserStats = async (userId: string): Promise<UserInterface | null> => {
+  updateUserLessonStats(userId);
+  const user = await User.findById(userId);
+  if (!user) {
+    throw new Error('User not found');
   }
+  return user;
 };
-
-
-const addSessionStats = async (session: SessionStatsInterface): Promise<void> => {
-  try {
-    const newSession = new SessionStats(session);
-    await newSession.save();
-    await updateUserStats(session);
-  } catch (error) {
-    console.error('Error in addSessionStats:', error);
-  }
-};
-
-const updateUserStats = async (session: SessionStatsInterface): Promise<void> => {
-  try {
-    const user = await User.findOne({ email: session.email });
-
-    if (user) {
-      user.sessionCount = (user.sessionCount || 0) + 1;
-      user.totalTimeSpent = (user.totalTimeSpent || 0) + session.duration;
-      user.knownWords = user.knownWords ? [...user.knownWords, ...session.knownWords] : session.knownWords;
-      user.unknownWords = user.unknownWords ? [...user.unknownWords, ...session.unknownWords] : session.unknownWords;
-      user.averagePerformance = user.sessionCount > 0 ?
-        ((user.averagePerformance || 0) * (user.sessionCount - 1) + session.performance) / user.sessionCount :
-        session.performance;
-
-      const lastSessionDate = new Date(user.lastSessionDate || 0);
-      const currentDate = new Date(session.date);
-      if (isConsecutiveDay(lastSessionDate, currentDate)) {
-        user.streak = (user.streak || 0) + 1;
-      } else {
-        user.streak = 1;
-      }
-      user.lastSessionDate = currentDate;
-
-      await user.save();
-    }
-  } catch (error) {
-    console.error('Error in updateUserStats:', error);
-  }
-};
-
-const getUserStats = async (email: string): Promise<UserInterface | null> => {
-  return await User.findOne({ email });
-};
-
-const getSessionStats = async (sessionId: string): Promise<SessionStatsInterface | null> => {
-  return await SessionStats.findOne({ sessionId });
-};
-
-export { addUserStats, addSessionStats, getUserStats, getSessionStats };

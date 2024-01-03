@@ -19,7 +19,7 @@ export class OpenAiService {
     this.defaultParameters = {
       model,
       max_tokens: 1000,
-      temperature: 0,
+      temperature: 0.4,
       top_p: 1,
       n: 1,
       stream: false,
