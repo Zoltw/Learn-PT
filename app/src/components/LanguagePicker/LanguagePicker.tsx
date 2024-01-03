@@ -3,7 +3,7 @@ import { Text, TouchableOpacity, View } from 'react-native';
 import { styles } from './styles';
 import useLanguage from '../../hooks/useLanguage';
 
-const languages = [
+export const languages = [
   { code: 'en', name: 'English' },
   { code: 'pl', name: 'Polski' },
 ];

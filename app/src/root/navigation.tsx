@@ -64,6 +64,7 @@ export const PostAuthFlow = () => {
         headerLeft: () => <></>,
       }}/>}
       <PostAuthNavigatorStack.Screen name={screenApp.DASHBOARD} component={Dashboard} options={{
+        headerLeft: () => <></>,
         headerRight: () => (
           <SettingsHeaderButton/>
         ),

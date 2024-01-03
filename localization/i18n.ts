@@ -10,8 +10,8 @@ i18n
     pluralSeparator: '_',
     compatibilityJSON: 'v3',
     resources: {
-      en: { translation: en },
-      pl: { translation: pl },
+      en: { translation: en, name: 'English' },
+      pl: { translation: pl, name: 'Polish' },
     },
     lng: 'en',
     fallbackLng: 'en',

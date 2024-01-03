@@ -31,7 +31,7 @@ app.use(express.json());
 app.use(accessControl);
 app.use('/health', health);
 app.use('/v1/users', userRoutes);
-app.use(authenticateToken);
+// app.use(authenticateToken);
 app.use('/v1/chat', promptRoutes);
 app.use(errorHandler);
 app.get('/proxy/:url', async (req, res) => {

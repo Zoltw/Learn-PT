@@ -3,6 +3,8 @@ import mongoose from 'mongoose';
 export interface UserInterface extends mongoose.Document {
   email: string;
   password: string;
+  baseLanguage: string;
+  goalLanguage: string;
   goal?: string;
   sessionCount?: number;
   totalTimeSpent?: number;
@@ -16,11 +18,13 @@ export interface UserInterface extends mongoose.Document {
 const userSchema = new mongoose.Schema({
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
+  baseLanguage: { type: String, required: false },
+  goalLanguage: { type: String, required: false },
   goal: { type: String, required: false },
   sessionCount: { type: Number, required: false },
   totalTimeSpent: { type: Number, required: false },
-  knownWordsCount: { type: Array<string>, required: false },
-  unknownWordsCount: { type: Array<string>, required: false },
+  knownWords: { type: Array<string>, required: false },
+  unknownWords: { type: Array<string>, required: false },
   averagePerformance: { type: Number, required: false },
   streak: { type: Number, required: false },
   lastSessionDate: { type: Date, required: false },

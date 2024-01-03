@@ -8,7 +8,7 @@ import useAuthState from '../../hooks/useAuthState';
 
 interface AuthProps {
   type: formTypes;
-  performAction: (email: string, password: string, repeatPassword?: string) => Promise<void>;
+  performAction: (email: string, password: string, baseLanguage?: string, repeatPassword?: string) => Promise<void>;
   alternateNavigate: () => void;
   alternateText: string;
 }

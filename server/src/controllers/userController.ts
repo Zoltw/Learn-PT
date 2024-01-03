@@ -4,6 +4,12 @@ import { UserInterface } from '../models/user';
 import jwt from 'jsonwebtoken';
 
 type userType = Promise<Response<string, Record<string, string>> | undefined>;
+type LanguageCode = keyof typeof languageMapping;
+
+const languageMapping = {
+  pl: { basedLanguage: 'Polish', goalLanguage: 'English' },
+  en: { basedLanguage: 'English', goalLanguage: 'Polish' },
+};
 
 export const createUser = async (req: Request, res: Response): userType => {
   const userData: UserInterface & { passwordConfirmation: string } = req.body;
@@ -49,6 +55,39 @@ export const updateUserGoal = async (req: Request, res: Response): Promise<void>
 
   try {
     const updatedUser = await userService.updateUserGoal(userId, goal);
+    if (updatedUser) {
+      res.json('ok');
+    } else {
+      res.status(404).json({ message: 'User not found' });
+    }
+  } catch (error) {
+    res.status(500).json({ message: error || 'Internal Server Error' });
+  }
+};
+
+export const updateUserLanguages = async (req: Request, res: Response): Promise<void> => {
+  const { userId } = req.params;
+  const { baseLanguage } = req.body;
+
+  try {
+    const { basedLanguage, goalLanguage } = languageMapping[baseLanguage as LanguageCode] || { basedLanguage: 'English', goalLanguage: 'Polish' };
+    const updatedUser = await userService.updateUserLanguage(userId, basedLanguage, goalLanguage);
+    if (updatedUser) {
+      res.json('ok');
+    } else {
+      res.status(404).json({ message: 'User not found' });
+    }
+  } catch (error) {
+    res.status(500).json({ message: error || 'Internal Server Error' });
+  }
+};
+
+export const updateUserWords = async (req: Request, res: Response): Promise<void> => {
+  const { userId } = req.params;
+  const { knownWords, unknownWords } = req.body;
+
+  try {
+    const updatedUser = await userService.updateUserWords(userId, knownWords, unknownWords);
     if (updatedUser) {
       res.json('ok');
     } else {

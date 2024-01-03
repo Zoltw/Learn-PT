@@ -6,7 +6,7 @@ import { registerDisclaimer } from './variables';
 import { navigate } from '../../root/navigator';
 
 const AuthRegister: React.FC = () => {
-  const performRegistration = useCallback(async (email: string, password: string, repeatPassword: string) => {
+  const performRegistration = useCallback(async (email: string, password: string, baseLanguage: string, repeatPassword: string) => {
     if (password !== repeatPassword) {
       console.error('Passwords do not match');
       return;
@@ -18,7 +18,7 @@ const AuthRegister: React.FC = () => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ email, password, passwordConfirmation: repeatPassword }),
+        body: JSON.stringify({ email, password, baseLanguage, passwordConfirmation: repeatPassword }),
       });
 
       if (!response.ok) {

@@ -4,22 +4,20 @@ import { styles } from './styles';
 import { LearnButton } from '../../components/Button/LearnButton';
 import { navigate } from '../../root/navigator';
 import { screenApp } from '../screens';
-import { sendStatisticsToService } from './serviceCom';
+import { fetchChatGPTResponseFromService } from './serviceCom';
+import { getUserID } from '../../storage/storage';
+import LoadingScreen from '../loading/loading';
 
 interface Question {
   word: string;
   answers: Array<string>;
   correctAnswer: string;
-  known: boolean | null
+  known: boolean | null;
 }
-
-// eslint-disable-next-line max-len, quotes
-const questions = JSON.parse("[{\"word\": \"Ananas\", \"answers\": [\"Pineapple\", \"Banana\", \"Apple\", \"Orange\"], \"correctAnswer\": \"Pineapple\"}, {\"word\": \"Chomik\", \"answers\": [\"Rabbit\", \"Hamster\", \"Mouse\", \"Cat\"], \"correctAnswer\": \"Hamster\"}, {\"word\": \"Dziękuję\", \"answers\": [\"Please\", \"Thank you\", \"Welcome\", \"Sorry\"], \"correctAnswer\": \"Thank you\"}, {\"word\": \"Do widzenia\", \"answers\": [\"Hello\", \"Goodbye\", \"See you\", \"Good night\"], \"correctAnswer\": \"Goodbye\"}, {\"word\": \"Cześć\", \"answers\": [\"Bye\", \"Cheers\", \"Hello\", \"Good evening\"], \"correctAnswer\": \"Hello\"}, {\"word\": \"Pomarańcza\", \"answers\": [\"Grapefruit\", \"Peach\", \"Orange\", \"Lemon\"], \"correctAnswer\": \"Orange\"}, {\"word\": \"Kot\", \"answers\": [\"Dog\", \"Cat\", \"Horse\", \"Cow\"], \"correctAnswer\": \"Cat\"}, {\"word\": \"Jabłko\", \"answers\": [\"Pear\", \"Banana\", \"Apple\", \"Cherry\"], \"correctAnswer\": \"Apple\"}, {\"word\": \"Pies\", \"answers\": [\"Cat\", \"Mouse\", \"Dog\", \"Rabbit\"], \"correctAnswer\": \"Dog\"}, {\"word\": \"Książka\", \"answers\": [\"Magazine\", \"Book\", \"Newspaper\", \"Letter\"], \"correctAnswer\": \"Book\"}, {\"word\": \"Samochód\", \"answers\": [\"Bicycle\", \"Airplane\", \"Car\", \"Train\"], \"correctAnswer\": \"Car\"}]");
-
 
 const LearningScreen: React.FC = () => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-  const [questionsData, setQuestionsData] = useState(questions);
+  const [questionsData, setQuestionsData] = useState<Array<Question>>([]);
   const fadeAnim = useRef(new Animated.Value(0)).current;
 
   const animateFade = useCallback((toValue, callback?) => {
@@ -34,21 +32,23 @@ const LearningScreen: React.FC = () => {
     const knownWords = updatedQuestions.filter((q) => q.known === true).map((q) => q.word);
     const unknownWords = updatedQuestions.filter((q) => q.known === false).map((q) => q.word);
 
-    // Send data to backend
     // sendStatisticsToService(knownWords, unknownWords)
     navigate(screenApp.SUMMARY, { knownWords, unknownWords });
   }, []);
 
   const handleAnswer = useCallback((answer: string) => {
     animateFade(0, () => {
-      const isCorrect = answer === questionsData[currentQuestionIndex].correctAnswer;
-      const updatedQuestions = [...questionsData];
-      updatedQuestions[currentQuestionIndex].known = isCorrect;
+      const updatedQuestions = questionsData.map((question, index) => {
+        if (index === currentQuestionIndex) {
+          return { ...question, known: answer === question.correctAnswer };
+        }
+        return question;
+      });
 
       setQuestionsData(updatedQuestions);
 
-      if (currentQuestionIndex < questions.length - 1) {
-        setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
+      if (currentQuestionIndex < questionsData.length - 1) {
+        setCurrentQuestionIndex(currentQuestionIndex + 1);
       } else {
         sendResultsToBackend(updatedQuestions);
       }
@@ -57,9 +57,41 @@ const LearningScreen: React.FC = () => {
     });
   }, [animateFade, currentQuestionIndex, questionsData, sendResultsToBackend]);
 
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const userId = await getUserID();
+        const response = await fetchChatGPTResponseFromService(userId);
+
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+
+        const { message } = await response.json();
+        const fetchedQuestions = message.lesson ? JSON.parse(message.lesson) : JSON.parse(message);
+
+        if (Array.isArray(fetchedQuestions) && fetchedQuestions.length > 0) {
+          setQuestionsData(fetchedQuestions);
+          setCurrentQuestionIndex(0);
+        } else {
+          console.error('Fetched data is not an array of questions');
+        }
+      } catch (error) {
+        console.error('There was a problem with the fetch operation:', error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
   useEffect(() => {
     animateFade(1);
-  }, [currentQuestionIndex, animateFade]);
+  }, [currentQuestionIndex, questionsData, animateFade]);
+
+  if (!questionsData || questionsData.length === 0) {
+    return <LoadingScreen />;
+  }
 
   const question = questionsData[currentQuestionIndex];
 

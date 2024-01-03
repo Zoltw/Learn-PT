@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { AuthProvider } from '../context/AuthProvider';
@@ -8,33 +8,27 @@ import i18n from '../../../localization/i18n';
 import { Route } from './navTypes';
 import { PostAuthFlow, PreAuthFlow } from './navigation';
 import { navigationRef } from './navigator';
-
+import { useAsyncInitState } from '../hooks/useAsyncInitState';
 
 const RootStack = createStackNavigator();
 
-
 const Root: React.FC = () => {
-  const [isAuth, setIsAuth] = useState<boolean | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const initStates = useAsyncInitState(async () => {
+    const authStatus = await getHasSuccessfullyAuthenticated();
+    const language = await getLanguage();
+    return { authStatus, language };
+  });
+
+  const isAuth = initStates?.authStatus;
+  const selectedLanguage = initStates?.language;
 
   useEffect(() => {
-    async function initializeApp() {
-      try {
-        const authStatus = await getHasSuccessfullyAuthenticated();
-        setIsAuth(authStatus);
-
-        const selectedLanguage = await getLanguage();
-        i18n.changeLanguage(selectedLanguage);
-      } finally {
-        setIsLoading(false);
-      }
+    if (selectedLanguage) {
+      i18n.changeLanguage(selectedLanguage);
     }
+  }, [selectedLanguage]);
 
-    setTimeout(() => initializeApp(), 500);
-  }, [setIsAuth]);
-
-
-  if (isAuth === null || isLoading) {
+  if (isAuth === undefined || isAuth === null) {
     return (
       <NavigationContainer>
         <RootStack.Navigator screenOptions={{ headerShown: false }}>
