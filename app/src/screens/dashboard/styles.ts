@@ -3,7 +3,7 @@ import { StyleSheet } from 'react-native';
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f0f0f0',
+    backgroundColor: '#fff',
     padding: 20,
   },
   contentContainer: {
@@ -31,9 +31,12 @@ export const styles = StyleSheet.create({
     color: '#555',
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
+    shadowOpacity: 0.3,
     shadowRadius: 4,
     elevation: 2,
     width: '100%',
+  },
+  fieldsContainer: {
+    marginBottom: 15,
   },
 });

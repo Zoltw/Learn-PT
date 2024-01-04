@@ -37,6 +37,10 @@ export const setGoal = async (value: string): Promise<void> => {
   return local.setItem(StorageKey.SPECIFIC_GOAL, value);
 };
 
+export const removeGoal = async (): Promise<void> => {
+  return local.removeItem(StorageKey.SPECIFIC_GOAL);
+};
+
 export const getUserID = async (): Promise<string> => {
   return (await local.getItem(StorageKey.USER_ID));
 };

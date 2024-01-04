@@ -34,7 +34,7 @@ export const loginUser = async (req: Request, res: Response): userType => {
     }
 
     const token = jwt.sign({ userId: user }, `${process.env.JWT_KEY}`, { expiresIn: '1h' });
-    res.json({ user, token });
+    res.status(200).json({ user, token });
   } catch (error) {
     res.status(500).json({ message: error });
   }
@@ -44,7 +44,7 @@ export const getUser = async (req: Request, res: Response): Promise<void> => {
   const userId = req.params.userId;
   try {
     const user = await userService.getUser(userId);
-    res.json(user);
+    res.status(200).json(user);
   } catch (error) {
     res.status(404).json({ message: error });
   }
@@ -57,7 +57,7 @@ export const updateUserGoal = async (req: Request, res: Response): Promise<void>
   try {
     const updatedUser = await userService.updateUserGoal(userId, goal);
     if (updatedUser) {
-      res.json('ok');
+      res.status(200);
     } else {
       res.status(404).json({ message: 'User not found' });
     }
@@ -74,7 +74,7 @@ export const updateUserLanguages = async (req: Request, res: Response): Promise<
     const { basedLanguage, goalLanguage } = languageMapping[baseLanguage as LanguageCode] || { basedLanguage: 'English', goalLanguage: 'Polish' };
     const updatedUser = await userService.updateUserLanguage(userId, basedLanguage, goalLanguage);
     if (updatedUser) {
-      res.json('ok');
+      res.status(200);
     } else {
       res.status(404).json({ message: 'User not found' });
     }
@@ -89,8 +89,9 @@ export const updateUserWords = async (req: Request, res: Response): Promise<void
 
   try {
     const updatedUser = await userService.updateUserWords(userId, knownWords, unknownWords);
+    statisticsService.updateUserLessonStats(userId);
     if (updatedUser) {
-      res.json('ok');
+      res.status(200);
     } else {
       res.status(404).json({ message: 'User not found' });
     }
@@ -101,9 +102,10 @@ export const updateUserWords = async (req: Request, res: Response): Promise<void
 
 export const getAllUserStats = async (req: Request, res: Response): Promise<void> => {
   const { userId } = req.params;
+
   try {
     const stats = await statisticsService.getUserStats(userId);
-    res.json(stats);
+    res.status(200).json(stats);
   } catch (error) {
     if (error === 'User not found') {
       res.status(404).json({ message: error });
@@ -113,4 +115,14 @@ export const getAllUserStats = async (req: Request, res: Response): Promise<void
   }
 };
 
+export const deleteUser = async (req: Request, res: Response): Promise<void> => {
+  const { userId } = req.params;
+
+  try {
+    await userService.deleteUser(userId);
+    res.status(200).json({ message: 'User successfully deleted' });
+  } catch (error) {
+    res.status(500).json({ message: error || 'Internal Server Error' });
+  }
+};
 

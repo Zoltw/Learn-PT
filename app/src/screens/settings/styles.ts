@@ -4,10 +4,16 @@ export const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
   },
-  textCont: {
-    marginTop: 40,
+  contentContainer: {
+    flexGrow: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  text: {
+    marginTop: 30,
+    marginBottom: 15,
+    fontSize: 18,
+    fontWeight: 'bold',
   },
 });

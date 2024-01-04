@@ -27,7 +27,6 @@ export const updateUserLessonStats = async (userId: string): Promise<void> => {
 };
 
 export const getUserStats = async (userId: string): Promise<UserInterface | null> => {
-  updateUserLessonStats(userId);
   const user = await User.findById(userId);
   if (!user) {
     throw new Error('User not found');

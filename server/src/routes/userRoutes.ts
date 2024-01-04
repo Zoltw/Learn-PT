@@ -11,5 +11,6 @@ router.post('/words/:userId', userController.updateUserWords);
 router.get('/baseLanguage/:userId', userController.updateUserLanguages);
 router.get('/statistics/:userId', userController.getAllUserStats);
 router.get('/:userId', userController.getUser);
+router.delete('/:userId', userController.deleteUser);
 
 export default router;

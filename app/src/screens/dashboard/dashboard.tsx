@@ -52,7 +52,7 @@ const Dashboard: React.FC = () => {
       {userStats ? (
         <>
           <Text style={styles.title}>{translate('Statistics')}</Text>
-          <View>
+          <View style={styles.fieldsContainer}>
             <Text style={styles.stat}>
               {`${translate('Session Count:')} ${userStats.sessionCount ?? '0'}`}
             </Text>
@@ -74,7 +74,8 @@ const Dashboard: React.FC = () => {
             <Text style={styles.stat}>
               {`${translate('Last Session Date:')} ${userStats.date ?? new Date().toDateString()}`}
             </Text>
-          </View><StandardButton text={translate('Learn!')} blackButton={false} onPressFunction={learnAction} />
+          </View>
+          <StandardButton text={translate('Learn!')} blackButton={false} onPressFunction={learnAction} />
         </>
       ) : <Text style={styles.error}>{translate('We have a problem. Please try later')}</Text>}
     </ScrollView>

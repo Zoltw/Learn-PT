@@ -41,6 +41,18 @@ export const updateUser = async (userId: string, updateFields: Partial<UserInter
   }
 };
 
+export const deleteUser = async (userId: string): Promise<void> => {
+  try {
+    const user = await User.findByIdAndDelete(userId);
+    if (!user) {
+      throw new Error('User not found');
+    }
+  } catch (error) {
+    console.error('Error deleting user:', error);
+    throw error;
+  }
+};
+
 export const updateUserGoal = async (userId: string, userGoal: string): Promise<UserInterface | null> => {
   return updateUser(userId, { goal: userGoal });
 };
@@ -80,4 +92,3 @@ export const updateUserWords = async (userId: string, newKnownWords: Array<strin
     return null;
   }
 };
-

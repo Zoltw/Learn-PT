@@ -37,13 +37,26 @@ const Summary: React.FC = () => {
 
       Updates.reloadAsync();
       return response.json();
-    } catch {};
+    } catch (error) {
+      console.error('There was a problem with the fetch operation:', error);
+    }
   }, [knownWords, unknownWords]);
 
   return (
     <View style={styles.container}>
-      <Text>{`${knownWords}`}</Text>
-      <Text>{`${unknownWords}`}</Text>
+      {knownWords.length > 0 &&
+      <View style={styles.box}>
+        <Text style={styles.textHead}>{translate('You know these words:')}</Text>
+        <Text style={styles.text}>{`${knownWords.join(', ')}`}</Text>
+      </View>
+      }
+      {unknownWords.length > 0 &&
+      <View style={styles.box}>
+        <Text style={styles.textHead}>{translate('You dont know these words yet:')}</Text>
+        <Text style={styles.text}>{`${unknownWords.join(', ')}`}</Text>
+      </View>
+      }
+
       <StandardButton text={translate('Back to dashboard')} blackButton={true} onPressFunction={leaveSummarize}/>
     </View>
   );
