@@ -53,8 +53,8 @@ export const PostAuthFlow = () => {
   return (
     <PostAuthNavigatorStack.Navigator
       screenOptions={{
-        headerShown: true,
         title: null,
+        headerShown: true,
         gestureEnabled: false,
         cardOverlayEnabled: true,
       }}

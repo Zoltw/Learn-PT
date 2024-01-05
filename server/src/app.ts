@@ -33,12 +33,6 @@ app.use('/health', health);
 app.use('/v1/users', userRoutes);
 app.use('/v1/chat', promptRoutes);
 app.use(errorHandler);
-app.get('/proxy/:url', async (req, res) => {
-  const url = req.params.url;
-  const response = await fetch(url);
-  const body = await response.text();
-  res.send(body);
-});
 app.use(invalidRoute);
 app.use(notImplemented);
 
