@@ -7,6 +7,7 @@ import { StandardButton } from '../../components/Button/StandardButton';
 import { navigate } from '../../root/navigator';
 import { screenApp } from '../screens';
 import { getUserID } from '../../storage/storage';
+import { fetchDashboardDetails } from '../../api/user';
 
 const Dashboard: React.FC = () => {
   const [userStats, setUserStats] = useState(null);
@@ -17,16 +18,7 @@ const Dashboard: React.FC = () => {
     try {
       setLoading(true);
       const userId = await getUserID();
-      const response = await fetch(`${process.env.EXPO_PUBLIC_SERVER_URL}/v1/users/statistics/${userId}`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-      const data = await response.json();
+      const data = await fetchDashboardDetails(userId);
       setUserStats(data);
     } catch (error) {
       console.error('There was a problem with the fetch operation:', error);

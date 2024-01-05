@@ -17,3 +17,4 @@ export const fetchChatGPTResponseFromService = async (userId: string) => {
     console.error(error.message);
   }
 };
+

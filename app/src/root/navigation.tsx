@@ -29,7 +29,7 @@ export const PreAuthFlow = () => {
     <PreAuthNavigatorStack.Navigator
       screenOptions={{
         headerShown: false,
-        gestureEnabled: true,
+        gestureEnabled: false,
         cardOverlayEnabled: true,
       }}
     >
@@ -58,7 +58,6 @@ export const PostAuthFlow = () => {
         gestureEnabled: false,
         cardOverlayEnabled: true,
       }}
-      initialRouteName={isGoalPickerSeenBefore ? screenApp.DASHBOARD : screenApp.CHOOSE_GOAL}
     >
       {!isGoalPickerSeenBefore && <PostAuthNavigatorStack.Screen name={screenApp.CHOOSE_GOAL} component={ChooseGoal} options={{
         headerLeft: () => <></>,

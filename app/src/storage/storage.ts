@@ -45,7 +45,7 @@ export const getUserID = async (): Promise<string> => {
   return (await local.getItem(StorageKey.USER_ID));
 };
 
-export const setUserIDToStorage = async (value: string): Promise<void> => {
+export const setUserID = async (value: string): Promise<void> => {
   return local.setItem(StorageKey.USER_ID, value);
 };
 

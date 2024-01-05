@@ -4,9 +4,9 @@ import { styles } from './styles';
 import { LearnButton } from '../../components/Button/LearnButton';
 import { navigate } from '../../root/navigator';
 import { screenApp } from '../screens';
-import { fetchChatGPTResponseFromService } from './serviceCom';
 import { getUserID } from '../../storage/storage';
 import LoadingScreen from '../loading/loading';
+import { fetchChatGPTResponseFromService } from '../../api/prompt';
 
 interface Question {
   word: string;

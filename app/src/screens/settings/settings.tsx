@@ -7,6 +7,7 @@ import { clearMemory, getUserID, removeGoal, removeHasSuccessfullyAuthenticated 
 import * as Updates from 'expo-updates';
 import LanguagePicker from '../../components/LanguagePicker/LanguagePicker';
 import LevelPicker from '../../components/LevelPicker/LevelPicker';
+import { deleteUserAccount } from '../../api/user';
 
 const Settings: React.FC = () => {
   const { translate } = useTranslations();
@@ -28,17 +29,7 @@ const Settings: React.FC = () => {
   const deleteAccount = useCallback(async () => {
     try {
       const userId = await getUserID();
-      const response = await fetch(`${process.env.EXPO_PUBLIC_SERVER_URL}/v1/users/${userId}`, {
-        method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.message || 'Send level failed');
-      }
+      await deleteUserAccount(userId);
     } catch (error) {
       console.error('There was a problem with the fetch operation:', error);
     }
@@ -56,7 +47,7 @@ const Settings: React.FC = () => {
       <Text style={styles.text}>{translate('Change your language')}</Text>
       <LanguagePicker />
       <StandardButton text={translate('Logout')} blackButton={true} onPressFunction={userLogout}/>
-      <Button title={translate('Delete Account')} onPress={deleteAccount} color={'red'} />
+      <Button title={translate('Delete Account')} onPress={deleteAccount} color={'blue'} />
       <Button title={translate('App reset')} onPress={applicationReset} color={'red'} />
     </ScrollView>
   );
