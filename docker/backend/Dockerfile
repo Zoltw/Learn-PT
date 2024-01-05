@@ -7,7 +7,8 @@ RUN apt-get update && \
 
 COPY ./server/ /app/
 
-RUN npm ci && \
-    npm rebuild bcrypt --build-from-source
+RUN yarn install && \
+    yarn remove bcrypt && \
+    yarn add bcrypt --build-from-source
 
 EXPOSE 8080
