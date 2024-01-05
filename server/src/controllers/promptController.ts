@@ -2,6 +2,9 @@ import { Request, Response } from 'express';
 import { OpenAiService } from '../../src/services/openAiService';
 import * as userService from '../services/userService';
 import { createPrompt } from '../utils/promptDetails';
+import { config } from 'dotenv';
+
+config();
 
 export const sendPrompt = async (req: Request, res: Response) => {
   if (req === null) {

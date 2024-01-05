@@ -1,10 +1,7 @@
 import { OpenAI } from 'openai';
-import { config } from 'dotenv';
 import { ChatCompletion } from 'openai/resources/chat/completions';
 
 type CompletionRequest = OpenAI.Chat.ChatCompletionCreateParamsNonStreaming;
-
-config();
 
 export class OpenAiService {
   private openai: OpenAI;
