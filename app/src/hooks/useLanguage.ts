@@ -10,10 +10,10 @@ const useLanguage = () => {
     setSelectedLanguage(baseLanguage);
     await setLanguage(baseLanguage);
     const [isAuth, userId] = await Promise.all([getHasSuccessfullyAuthenticated(), getUserID()]);
-    i18n.changeLanguage(baseLanguage);
     if (isAuth) {
-      await sendUserLanguages(baseLanguage, userId);
+      sendUserLanguages(baseLanguage, userId);
     }
+    i18n.changeLanguage(baseLanguage);
   }, []);
 
   return { selectedLanguage, handleLanguageChange };

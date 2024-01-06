@@ -8,7 +8,7 @@ router.post('/register', userController.createUser);
 router.post('/login', userController.loginUser);
 router.post('/level/:userId', userController.updateUserGoal);
 router.post('/words/:userId', userController.updateUserWords);
-router.get('/baseLanguage/:userId', userController.updateUserLanguages);
+router.post('/baseLanguage/:userId', userController.updateUserLanguages);
 router.get('/statistics/:userId', userController.getAllUserStats);
 router.get('/:userId', userController.getUser);
 router.delete('/:userId', userController.deleteUser);

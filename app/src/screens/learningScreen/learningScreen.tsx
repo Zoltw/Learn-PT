@@ -71,12 +71,7 @@ const LearningScreen: React.FC = () => {
       try {
         const userId = await getUserID();
         const response = await fetchChatGPTResponseFromService(userId);
-
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-
-        const { message } = await response.json();
+        const { message } = response;
         const fetchedQuestions = message.lesson ? JSON.parse(message.lesson) : JSON.parse(message);
 
         if (Array.isArray(fetchedQuestions) && fetchedQuestions.length > 0) {

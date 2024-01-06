@@ -8,6 +8,7 @@ import { RouteProp, useRoute } from '@react-navigation/native';
 import { getUserID } from '../../storage/storage';
 import * as Updates from 'expo-updates';
 import { sendWordsFromSession } from '../../api/user';
+
 interface RouteParams {
   knownWords: Array<string>;
   unknownWords: Array<string>;

@@ -12,7 +12,7 @@ export const fetchChatGPTResponseFromService = async (userId: string) => {
       throw new Error(responseData.message || 'Fetch chat gpt failed');
     }
 
-    return response;
+    return response.json();
   } catch (error) {
     console.error(error.message);
   }
