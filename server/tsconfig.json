@@ -13,7 +13,7 @@
     "paths": {
       "*": ["node_modules/*"]
     },
-    "types": ["node"]
+    "types": ["jest"]
   },
   "include": ["src/**/*.ts"],
   "exclude": ["node_modules"]
