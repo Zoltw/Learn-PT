@@ -7,6 +7,7 @@
     "NEXT": "DALEJ",
     "Continue": "Kontynuuj",
     "Choose your language for learning": "Wybierz język do nauki",
+    "Choose your level": "Wybierz poziom trudności",
     "Don’t have an account?": "Nie masz konta?",
     "Already have an account?": "Masz juz konto?",
     "Log in": "Zaloguj się",
@@ -43,6 +44,15 @@
     "Preparing your language learning journey... New challenges and achievements await!": "Przygotowujemy Twoją językową podróż... Nowe wyzwania i osiągnięcia na Ciebie czekają!",
     "Delete Account": "Usuń konto",
     "You know these words:": "Znasz te słowa:",
-    "You dont know these words yet:": "Tych słów, jeszcze nie znasz:"
+    "You dont know these words yet:": "Tych słów, jeszcze nie znasz:",
+    "English": "Angielski",
+    "Polish": "Polski",
+    "German": "Niemiecki",
+    "Spanish": "Hiszpański",
+    "Italian": "Włoski",
+    "French": "Francuski",
+    "Change your goal language": "Zmień swój cel językowy",
+    "Change your level": "Zmień poziom trudności",
+    "Change your app language": "Zmień język aplikacji"
 }
 

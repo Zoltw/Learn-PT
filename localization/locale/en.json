@@ -7,6 +7,7 @@
     "NEXT": "NEXT",
     "Continue": "Continue",
     "Choose your language for learning": "Choose your language for learning",
+    "Choose your level": "Choose your level",
     "Don’t have an account?": "Don’t have an account?",
     "Already have an account?": "Already have an account?",
     "Log in": "Log in",
@@ -43,5 +44,14 @@
     "Preparing your language learning journey... New challenges and achievements await!": "Preparing your language learning journey... New challenges and achievements await!",
     "Delete Account": "Delete Account",
     "You know these words:": "You know these words:",
-    "You dont know these words yet:": "You dont know these words yet:"
+    "You dont know these words yet:": "You dont know these words yet:",
+    "English": "English",
+    "Polish": "Polish",
+    "German": "German",
+    "Spanish": "Spanish",
+    "Italian": "Italian",
+    "French": "French",
+    "Change your goal language": "Change your goal language",
+    "Change your level": "Change your level",
+    "Change your app language": "Change your app language"
 }
