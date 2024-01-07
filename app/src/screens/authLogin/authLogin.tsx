@@ -5,7 +5,13 @@ import { screenApp } from '../screens';
 import { loginDisclaimer } from './variables';
 import { useAuthProvider } from '../../context/AuthProvider';
 import { navigate } from '../../root/navigator';
-import { setGoal, setGoalPickerSeenBefore, setHasSuccessfullyAuthenticated, setUserID } from '../../storage/storage';
+import {
+  setHasSuccessfullyAuthenticated,
+  setLanguageGoal,
+  setLanguageGoalPickerSeenBefore,
+  setLevelGoal,
+  setLevelGoalPickerSeenBefore,
+  setUserID } from '../../storage/storage';
 import * as SecureStore from 'expo-secure-store';
 import * as Updates from 'expo-updates';
 import { fetchUserDetails } from '../../api/user';
@@ -22,7 +28,8 @@ const AuthLogin: React.FC = () => {
       await Promise.all([
         setUserID(user._id),
         setHasSuccessfullyAuthenticated(),
-        user.goal ? setGoalPickerSeenBefore() && setGoal(user.goal) : null,
+        user.goal ? setLevelGoalPickerSeenBefore() && setLevelGoal(user.goal) : null,
+        user.goalLanguage ? setLanguageGoalPickerSeenBefore && setLanguageGoal(user.goalLanguage) : null,
         Updates.reloadAsync(),
       ]);
     } catch (error) {

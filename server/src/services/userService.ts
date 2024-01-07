@@ -57,8 +57,12 @@ export const updateUserGoal = async (userId: string, userGoal: string): Promise<
   return updateUser(userId, { goal: userGoal });
 };
 
-export const updateUserLanguage = async (userId: string, baseLanguage: string, goalLanguage: string): Promise<UserInterface | null> => {
-  return updateUser(userId, { baseLanguage, goalLanguage });
+export const updateUserBaseLanguage = async (userId: string, baseLanguage: string): Promise<UserInterface | null> => {
+  return updateUser(userId, { baseLanguage });
+};
+
+export const updateUserGoalLanguage = async (userId: string, goalLanguage: string): Promise<UserInterface | null> => {
+  return updateUser(userId, { goalLanguage });
 };
 
 export const updateUserWords = async (userId: string, newKnownWords: Array<string>, newUnknownWords: Array<string>): Promise<UserInterface | null> => {

@@ -5,12 +5,13 @@ import { UserInterface } from '../models/user';
 import jwt from 'jsonwebtoken';
 
 type userType = Promise<Response<string, Record<string, string>> | undefined>;
-type LanguageCode = keyof typeof languageMapping;
+type LanguageKey = 'pl' | 'en';
 
-const languageMapping = {
-  pl: { basedLanguage: 'Polish', goalLanguage: 'English' },
-  en: { basedLanguage: 'English', goalLanguage: 'Polish' },
+const languageMapping: Record<LanguageKey, { basedLanguage: string }> = {
+  pl: { basedLanguage: 'Polish' },
+  en: { basedLanguage: 'English' },
 };
+
 
 export const createUser = async (req: Request, res: Response): userType => {
   const userData: UserInterface & { passwordConfirmation: string } = req.body;
@@ -66,13 +67,34 @@ export const updateUserGoal = async (req: Request, res: Response): Promise<void>
   }
 };
 
-export const updateUserLanguages = async (req: Request, res: Response): Promise<void> => {
+export const updateUserBaseLanguage = async (req: Request, res: Response): Promise<void> => {
   const { userId } = req.params;
   const { baseLanguage } = req.body;
 
   try {
-    const { basedLanguage, goalLanguage } = languageMapping[baseLanguage as LanguageCode] || { basedLanguage: 'English', goalLanguage: 'Polish' };
-    const updatedUser = await userService.updateUserLanguage(userId, basedLanguage, goalLanguage);
+    if (!(baseLanguage in languageMapping)) {
+      res.status(400).json({ message: 'Invalid base language' });
+      return;
+    }
+
+    const { basedLanguage } = languageMapping[baseLanguage as LanguageKey];
+    const updatedUser = await userService.updateUserBaseLanguage(userId, basedLanguage);
+    if (updatedUser) {
+      res.status(200).json(updatedUser);
+    } else {
+      res.status(404).json({ message: 'User not found' });
+    }
+  } catch (error) {
+    res.status(500).json({ message: error || 'Internal Server Error' });
+  }
+};
+
+export const updateUserGoalLanguage = async (req: Request, res: Response): Promise<void> => {
+  const { userId } = req.params;
+  const { goalLanguage } = req.body;
+
+  try {
+    const updatedUser = await userService.updateUserGoalLanguage(userId, goalLanguage);
     if (updatedUser) {
       res.status(200);
     } else {

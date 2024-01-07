@@ -23,6 +23,29 @@ export const sendUserLevel = async (goal: string, userId: string) => {
   }
 };
 
+
+export const sendUserGoalLanguage = async (goalLanguage: string, userId: string) => {
+  try {
+    const response = await fetch(`${SERVICE_URL}/v1/users/goalLanguage/${userId}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ goalLanguage }),
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.message || 'Send level failed');
+    }
+
+    return response.json();
+  } catch (error) {
+    console.error('Error in sendUserLevel:', error);
+    throw error;
+  }
+};
+
 export const sendUserLanguages = async (baseLanguage: string, userId: string) => {
   try {
     const response = await fetch(`${SERVICE_URL}/v1/users/baseLanguage/${userId}`, {

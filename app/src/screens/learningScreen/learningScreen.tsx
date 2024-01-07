@@ -7,6 +7,7 @@ import { screenApp } from '../screens';
 import { getUserID } from '../../storage/storage';
 import LoadingScreen from '../loading/loading';
 import { fetchChatGPTResponseFromService } from '../../api/prompt';
+import { responseFallback } from './fallback';
 
 interface Question {
   word: string;
@@ -72,6 +73,7 @@ const LearningScreen: React.FC = () => {
         const userId = await getUserID();
         const response = await fetchChatGPTResponseFromService(userId);
         const { message } = response;
+        response ?? responseFallback;
         const fetchedQuestions = message.lesson ? JSON.parse(message.lesson) : JSON.parse(message);
 
         if (Array.isArray(fetchedQuestions) && fetchedQuestions.length > 0) {

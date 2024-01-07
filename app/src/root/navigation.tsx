@@ -1,5 +1,5 @@
 import React from 'react';
-import { getGoalPickerSeenBefore, getLanguagePickerSeenBefore } from '../storage/storage';
+import { getLanguageGoalPickerSeenBefore, getLanguagePickerSeenBefore, getLevelGoalPickerSeenBefore } from '../storage/storage';
 import { SettingsHeaderButton } from '../components/Button/SettingsHeaderButton';
 import { SettingsHeaderBackButton } from '../components/Button/SettingsHeaderBackButton';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -10,18 +10,19 @@ import AuthRegister from '../screens/authRegister/authRegister';
 import Dashboard from '../screens/dashboard/dashboard';
 import LearningScreen from '../screens/learningScreen/learningScreen';
 import Settings from '../screens/settings/settings';
-import ChooseLanguage from '../screens/chooseLanguage/chooseLanguage';
+import ChooseAppLanguage from '../screens/chooseAppLanguage/chooseAppLanguage';
 import Summary from '../screens/summary/summary';
 import LoadingScreen from '../screens/loading/loading';
-import ChooseGoal from '../screens/chooseGoal/chooseGoal';
 import { useAsyncInitState } from '../hooks/useAsyncInitState';
+import ChooseGoalLanguage from '../screens/chooseGoalLanguage/chooseGoalLanguage';
+import ChooseGoalLevel from '../screens/chooseGoalLevel/chooseGoalLevel';
 
 const PreAuthNavigatorStack = createStackNavigator();
 
 export const PreAuthFlow = () => {
-  const isLanguagePickerSeenBefore = useAsyncInitState(getLanguagePickerSeenBefore);
+  const isLanguageAppPickerSeenBefore = useAsyncInitState(getLanguagePickerSeenBefore);
 
-  if (isLanguagePickerSeenBefore === null) {
+  if (isLanguageAppPickerSeenBefore === null) {
     return <LoadingScreen/>;
   }
 
@@ -33,7 +34,7 @@ export const PreAuthFlow = () => {
         cardOverlayEnabled: true,
       }}
     >
-      {!isLanguagePickerSeenBefore && <PreAuthNavigatorStack.Screen name={screenApp.CHOOSE_LANGUAGE} component={ChooseLanguage} />}
+      {!isLanguageAppPickerSeenBefore && <PreAuthNavigatorStack.Screen name={screenApp.CHOOSE_APP_LANGUAGE} component={ChooseAppLanguage} />}
       <PreAuthNavigatorStack.Screen name={screenApp.WELCOME} component={Welcome} />
       <PreAuthNavigatorStack.Screen name={screenApp.AUTH_LOGIN} component={AuthLogin} />
       <PreAuthNavigatorStack.Screen name={screenApp.AUTH_REGISTER} component={AuthRegister} />
@@ -44,9 +45,10 @@ export const PreAuthFlow = () => {
 const PostAuthNavigatorStack = createStackNavigator();
 
 export const PostAuthFlow = () => {
-  const isGoalPickerSeenBefore = useAsyncInitState(getGoalPickerSeenBefore);
+  const isLevelGoalPickerSeenBefore = useAsyncInitState(getLevelGoalPickerSeenBefore);
+  const isLanguageGoalPickerSeenBefore = useAsyncInitState(getLanguageGoalPickerSeenBefore);
 
-  if (isGoalPickerSeenBefore === null) {
+  if (isLevelGoalPickerSeenBefore === null || isLanguageGoalPickerSeenBefore === null) {
     return <LoadingScreen/>;
   }
 
@@ -59,9 +61,15 @@ export const PostAuthFlow = () => {
         cardOverlayEnabled: true,
       }}
     >
-      {!isGoalPickerSeenBefore && <PostAuthNavigatorStack.Screen name={screenApp.CHOOSE_GOAL} component={ChooseGoal} options={{
-        headerLeft: () => <></>,
-      }}/>}
+      {!isLanguageGoalPickerSeenBefore && !isLevelGoalPickerSeenBefore &&
+      <>
+        <PostAuthNavigatorStack.Screen name={screenApp.CHOOSE_GOAL_LANGUAGE} component={ChooseGoalLanguage} options={{
+          headerLeft: () => <></>,
+        }} />
+        <PostAuthNavigatorStack.Screen name={screenApp.CHOOSE_GOAL_LEVEL} component={ChooseGoalLevel} options={{
+          headerLeft: () => <></>,
+        }} />
+      </>}
       <PostAuthNavigatorStack.Screen name={screenApp.DASHBOARD} component={Dashboard} options={{
         headerLeft: () => <></>,
         headerRight: () => (

@@ -2,8 +2,10 @@ import { local } from '.';
 
 enum StorageKey {
   LANGUAGE_PICKER = 'languagePicker',
-  GOAL_PICKER = 'GoalPicker',
-  SPECIFIC_GOAL = 'SpecificGoal',
+  LEVEL_GOAL_PICKER = 'LevelGoalPicker',
+  LANGUAGE_GOAL_PICKER = 'LanguageGoalPicker',
+  SPECIFIC_LEVEL_GOAL = 'SpecificLevelGoal',
+  SPECIFIC_LANGUAGE_GOAL = 'SpecificLanguageGoal',
   USER_ID = 'UserID',
   APP_LANGUAGE = 'appLanguage',
   HAS_SUCCESSFULLY_AUTHENTICATED = 'hasSuccessfullyAuthenticated',
@@ -21,24 +23,44 @@ export const removeLanguagePickerSeenBefore = async (): Promise<void> => {
   return local.removeItem(StorageKey.LANGUAGE_PICKER);
 };
 
-export const getGoalPickerSeenBefore = async (): Promise<boolean> => {
-  return (await local.getItem(StorageKey.GOAL_PICKER)) === 'true';
+export const getLevelGoalPickerSeenBefore = async (): Promise<boolean> => {
+  return (await local.getItem(StorageKey.LEVEL_GOAL_PICKER)) === 'true';
 };
 
-export const setGoalPickerSeenBefore = async (): Promise<void> => {
-  return local.setItem(StorageKey.GOAL_PICKER, 'true');
+export const setLevelGoalPickerSeenBefore = async (): Promise<void> => {
+  return local.setItem(StorageKey.LEVEL_GOAL_PICKER, 'true');
 };
 
-export const getGoal = async (): Promise<string> => {
-  return (await local.getItem(StorageKey.SPECIFIC_GOAL));
+export const getLanguageGoalPickerSeenBefore = async (): Promise<boolean> => {
+  return (await local.getItem(StorageKey.LANGUAGE_GOAL_PICKER)) === 'true';
 };
 
-export const setGoal = async (value: string): Promise<void> => {
-  return local.setItem(StorageKey.SPECIFIC_GOAL, value);
+export const setLanguageGoalPickerSeenBefore = async (): Promise<void> => {
+  return local.setItem(StorageKey.LANGUAGE_GOAL_PICKER, 'true');
 };
 
-export const removeGoal = async (): Promise<void> => {
-  return local.removeItem(StorageKey.SPECIFIC_GOAL);
+export const getLevelGoal = async (): Promise<string> => {
+  return (await local.getItem(StorageKey.SPECIFIC_LEVEL_GOAL));
+};
+
+export const setLevelGoal = async (value: string): Promise<void> => {
+  return local.setItem(StorageKey.SPECIFIC_LEVEL_GOAL, value);
+};
+
+export const removeLevelGoal = async (): Promise<void> => {
+  return local.removeItem(StorageKey.SPECIFIC_LEVEL_GOAL);
+};
+
+export const getLanguageGoal = async (): Promise<string> => {
+  return (await local.getItem(StorageKey.SPECIFIC_LANGUAGE_GOAL));
+};
+
+export const setLanguageGoal = async (value: string): Promise<void> => {
+  return local.setItem(StorageKey.SPECIFIC_LANGUAGE_GOAL, value);
+};
+
+export const removeLanguageGoal = async (): Promise<void> => {
+  return local.removeItem(StorageKey.SPECIFIC_LANGUAGE_GOAL);
 };
 
 export const getUserID = async (): Promise<string> => {

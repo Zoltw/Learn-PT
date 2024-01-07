@@ -6,6 +6,7 @@ export enum screenApp {
   LEARNING_SCREEN = 'LearningScreen',
   SUMMARY = 'Summary',
   SETTINGS = 'Settings',
-  CHOOSE_LANGUAGE = 'ChooseLanguage',
-  CHOOSE_GOAL = 'ChooseGoal',
+  CHOOSE_APP_LANGUAGE = 'ChooseAppLanguage',
+  CHOOSE_GOAL_LEVEL = 'ChooseGoalLevel',
+  CHOOSE_GOAL_LANGUAGE = 'ChooseGoalLanguage',
 }

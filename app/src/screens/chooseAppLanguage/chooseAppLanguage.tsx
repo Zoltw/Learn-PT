@@ -6,8 +6,10 @@ import { styles } from './styles';
 import { screenApp } from '../screens';
 import { setLanguagePickerSeenBefore } from '../../storage/storage';
 import { navigate } from '../../root/navigator';
+import useTranslations from '../../hooks/useTranslations';
 
-const ChooseLanguage: React.FC = () => {
+const ChooseAppLanguage: React.FC = () => {
+  const { translate } = useTranslations();
   const hasSeenLanguagePicker = useCallback(() => {
     setLanguagePickerSeenBefore();
     navigate(screenApp.WELCOME);
@@ -15,13 +17,13 @@ const ChooseLanguage: React.FC = () => {
 
   return (
     <View style={styles.container}>
-      <Text>Choose your language</Text>
+      <Text style={styles.text}>{translate('Choose your language for learning')}</Text>
       <LanguagePicker />
       <StandardButton
-        text={'Continue'}
+        text={translate('Continue')}
         onPressFunction={hasSeenLanguagePicker} blackButton={true} />
     </View>
   );
 };
 
-export default ChooseLanguage;
+export default ChooseAppLanguage;

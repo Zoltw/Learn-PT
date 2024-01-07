@@ -3,7 +3,7 @@ import { Text, TouchableOpacity, View } from 'react-native';
 import { styles } from './styles';
 import useTranslations from '../../hooks/useTranslations';
 import useLevel from '../../hooks/useLevel';
-import { setGoalPickerSeenBefore } from '../../storage/storage';
+import { setLevelGoalPickerSeenBefore } from '../../storage/storage';
 import { level } from './languageLevels';
 
 const LevelPicker: React.FC = () => {
@@ -20,7 +20,7 @@ const LevelPicker: React.FC = () => {
   ];
 
   const handleLevelPicker = useCallback((level) => {
-    setGoalPickerSeenBefore();
+    setLevelGoalPickerSeenBefore();
     handleLevelChange(level);
   }, [handleLevelChange]);
 
