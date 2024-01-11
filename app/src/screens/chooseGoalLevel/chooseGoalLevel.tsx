@@ -18,7 +18,7 @@ const ChooseGoalLevel: React.FC = () => {
 
   return (
     <View style={styles.container}>
-      <Text>{translate('Choose your level')}</Text>
+      <Text style={styles.text}>{translate('Choose your level')}</Text>
       <LevelPicker/>
       <StandardButton
         text={translate('Continue')}

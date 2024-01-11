@@ -3,6 +3,7 @@ import { OpenAiService } from '../../src/services/openAiService';
 import * as userService from '../services/userService';
 import { createPrompt } from '../utils/promptDetails';
 import { config } from 'dotenv';
+import { parseJsonArray } from '../utils/promptParser';
 
 config();
 
@@ -16,6 +17,7 @@ export const sendPrompt = async (req: Request, res: Response) => {
     const openAiService = new OpenAiService(process.env.GPT_API_KEY, process.env.GPT_MODEL);
     const unifiedPrompt = createPrompt(user);
     const result = await openAiService.generateTextCompletion(unifiedPrompt);
+    // parseJsonArray(result);fif
     res.status(200).json({ message: result });
   } catch (error) {
     res.status(500).json({ message: error });

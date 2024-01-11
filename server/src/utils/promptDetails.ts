@@ -20,7 +20,7 @@ const promptTemplate = {
     answerChoicesLabel: " word, four ",
     correctTranslationLabel: " answer choices, and the correct ",
     translationNote: " translation. ",
-    jsonFormatNote: "The JSON should be clean and directly usable in a mobile app for language learning, without escape characters like newline characters '\n', or code block formatting '```json'. ",
+    jsonFormatNote: "The JSON should be clean and directly usable in a mobile app for language learning, without escape characters like newline characters '\n', code block formatting '```json' and additional description. ",
     lessonTailoringNote: "Tailor the lessons to progressively build towards ",
     performanceConsideration: " proficiency, considering the user's current knowledge and performance.",
     responseFormatRule: "Response should always look like: ",

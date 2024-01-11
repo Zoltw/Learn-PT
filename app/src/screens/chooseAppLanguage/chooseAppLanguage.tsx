@@ -17,7 +17,7 @@ const ChooseAppLanguage: React.FC = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>{translate('Choose your language for learning')}</Text>
+      <Text style={styles.text}>{translate('Choose your app language')}</Text>
       <LanguagePicker />
       <StandardButton
         text={translate('Continue')}

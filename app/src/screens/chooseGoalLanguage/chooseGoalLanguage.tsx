@@ -18,7 +18,7 @@ const ChooseGoalLanguage: React.FC = () => {
 
   return (
     <View style={styles.container}>
-      <Text>{translate('Change your goal language')}</Text>
+      <Text style={styles.text}>{translate('Change your goal language')}</Text>
       <LanguageGoalPicker/>
       <StandardButton
         text={translate('Continue')}
