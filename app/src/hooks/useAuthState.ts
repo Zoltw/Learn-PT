@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { formTypes } from '../components/Form/types';
-import i18n from '../../../localization/i18n';
+import i18n from '../localization/i18n';
 
 const useAuthState = (
   type: formTypes,

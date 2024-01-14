@@ -4,7 +4,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { AuthProvider } from '../context/AuthProvider';
 import LoadingScreen from '../screens/loading/loading';
 import { getHasSuccessfullyAuthenticated, getLanguage } from '../storage/storage';
-import i18n from '../../../localization/i18n';
+import i18n from '../localization/i18n';
 import { Route } from './navTypes';
 import { PostAuthFlow, PreAuthFlow } from './navigation';
 import { navigationRef } from './navigator';

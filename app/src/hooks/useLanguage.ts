@@ -1,6 +1,6 @@
 import { useCallback, useState } from 'react';
 import { getHasSuccessfullyAuthenticated, getUserID, setLanguage } from '../storage/storage';
-import i18n from '../../../localization/i18n';
+import i18n from '../localization/i18n';
 import { sendUserLanguages } from '../api/user';
 
 const useLanguage = () => {
