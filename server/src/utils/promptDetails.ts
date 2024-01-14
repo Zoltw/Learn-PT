@@ -9,7 +9,7 @@
 import { UserInterface } from "../models/user";
 
 const promptTemplate = {
-    languageTeacherIntro: "I am a language teacher, creating advanced ",
+    languageTeacherIntro: "Create advanced ",
     targetLanguageLabel: " lessons for ",
     baseLanguageLabel: " speakers aiming for ",
     proficiencyLevelLabel: " proficiency. ",

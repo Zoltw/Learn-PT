@@ -33,10 +33,16 @@ export class OpenAiService {
     const response = await this.openai.chat.completions.create({
       ...this.defaultParameters,
       ...overrides,
-      messages: [{
-        role: 'user',
-        content: prompt,
-      }],
+      messages: [
+        {
+          role: 'system',
+          content: 'Act as a language teacher.',
+        },
+        {
+          role: 'user',
+          content: prompt,
+        },
+      ],
     });
 
     return this.extractFirstChoiceText(response);
