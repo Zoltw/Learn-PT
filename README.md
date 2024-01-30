@@ -1,12 +1,17 @@
-## Learn-PT
+# Learn-PT
 
+## Server side start
 
-## Quick start
+```
+docker compose up
+```
+
+## Client side start
 
 ```
 yarn install
 ```
 
 ```
-yarn run start
+yarn start
 ```
