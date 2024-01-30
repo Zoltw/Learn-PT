@@ -1,6 +1,5 @@
 import express from 'express';
 import { config } from 'dotenv';
-import fetch from 'node-fetch';
 import userRoutes from './routes/userRoutes';
 import promptRoutes from './routes/promptRoutes';
 import { accessControl, authenticateToken, invalidRoute, notImplemented } from './utils/middlewares';

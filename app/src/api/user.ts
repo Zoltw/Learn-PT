@@ -4,7 +4,7 @@ const SERVICE_URL = process.env.EXPO_PUBLIC_SERVER_URL;
 export const sendUserLevel = async (goal: string, userId: string) => {
   try {
     const response = await fetch(`${SERVICE_URL}/v1/users/level/${userId}`, {
-      method: 'POST',
+      method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
       },
@@ -27,7 +27,7 @@ export const sendUserLevel = async (goal: string, userId: string) => {
 export const sendUserGoalLanguage = async (goalLanguage: string, userId: string) => {
   try {
     const response = await fetch(`${SERVICE_URL}/v1/users/goalLanguage/${userId}`, {
-      method: 'POST',
+      method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
       },
@@ -49,7 +49,7 @@ export const sendUserGoalLanguage = async (goalLanguage: string, userId: string)
 export const sendUserLanguages = async (baseLanguage: string, userId: string) => {
   try {
     const response = await fetch(`${SERVICE_URL}/v1/users/baseLanguage/${userId}`, {
-      method: 'POST',
+      method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
       },
@@ -157,7 +157,7 @@ export const deleteUserAccount = async (userId: string) => {
 export const sendWordsFromSession = async (userId: string, knownWords: Array<string>, unknownWords: Array<string>) => {
   try {
     const response = await fetch(`${SERVICE_URL}/v1/users/words/${userId}`, {
-      method: 'POST',
+      method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
       },
