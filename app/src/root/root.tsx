@@ -1,14 +1,13 @@
 import React, { useEffect } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { AuthProvider } from '../context/AuthProvider';
 import LoadingScreen from '../screens/loading/loading';
 import { getHasSuccessfullyAuthenticated, getLanguage } from '../storage/storage';
-import i18n from '../localization/i18n';
 import { Route } from './navTypes';
 import { PostAuthFlow, PreAuthFlow } from './navigation';
 import { navigationRef } from './navigator';
 import { useAsyncInitState } from '../hooks/useAsyncInitState';
+import i18n from '../localization/i18n';
 
 const RootStack = createStackNavigator();
 
@@ -39,18 +38,17 @@ const Root: React.FC = () => {
   }
 
   return (
-    <AuthProvider>
-      <NavigationContainer ref={navigationRef}>
-        <RootStack.Navigator screenOptions={{ headerShown: false, gestureEnabled: true, cardOverlayEnabled: true }}>
-          {isAuth ? (
-            <RootStack.Screen name={Route.AUTHED} component={PostAuthFlow} />
-          ) : (
-            <RootStack.Screen name={Route.UNAUTHED} component={PreAuthFlow} />
-          )}
-        </RootStack.Navigator>
-      </NavigationContainer>
-    </AuthProvider>
+    <NavigationContainer ref={navigationRef}>
+      <RootStack.Navigator screenOptions={{ headerShown: false, gestureEnabled: true, cardOverlayEnabled: true }}>
+        {isAuth ? (
+          <RootStack.Screen name={Route.AUTHED} component={PostAuthFlow} />
+        ) : (
+          <RootStack.Screen name={Route.UNAUTHED} component={PreAuthFlow} />
+        )}
+      </RootStack.Navigator>
+    </NavigationContainer>
   );
 };
 
 export default Root;
+

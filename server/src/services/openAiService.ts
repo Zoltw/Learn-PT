@@ -20,7 +20,7 @@ export class OpenAiService {
       top_p: 1,
       n: 1,
       stream: false,
-      frequency_penalty: 0,
+      frequency_penalty: 0.2,
       presence_penalty: 0,
     };
   }

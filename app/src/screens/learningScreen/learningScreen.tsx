@@ -72,10 +72,10 @@ const LearningScreen: React.FC = () => {
       try {
         const userId = await getUserID();
         const response = await fetchChatGPTResponseFromService(userId);
-        const { message } = response;
         response ?? responseFallback;
-        const fetchedQuestions = message.lesson ? JSON.parse(message.lesson) : JSON.parse(message);
-
+        const { message } = response;
+        const messageHelper = message?.lesson1 || message?.lesson;
+        const fetchedQuestions = message ? JSON.parse(messageHelper) : JSON.parse(message);
         if (Array.isArray(fetchedQuestions) && fetchedQuestions.length > 0) {
           const questionsWithShuffledAnswers = fetchedQuestions.map((question) => ({
             ...question,
